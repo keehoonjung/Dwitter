@@ -1,0 +1,10 @@
+.header {
+  width: 32rem;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 2rem;
+  height: 2rem;
+}

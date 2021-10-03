@@ -1,0 +1,15 @@
+@value black, smokywhite from "/src/common/color.css";
+
+.header {
+  width: 32rem;
+  display: flex;
+  align-items: center;
+  background-color: black;
+  color: smokywhite;
+}
+
+.logo {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 0.5rem;
+}

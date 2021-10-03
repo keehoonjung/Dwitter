@@ -1,0 +1,8 @@
+@value bg-main-color from "/src/common/color.css";
+
+.container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: bg-main-color;
+}
