@@ -1,0 +1,23 @@
+@value edit-bg-color, smokywhite, accent-color from "/src/common/color.css";
+
+.container {
+  background-color: edit-bg-color;
+  padding: 0.3rem 1rem;
+}
+
+.input {
+  width: 88%;
+  padding: 0.1rem 0.2rem;
+  font-size: 1rem;
+}
+
+.button {
+  border: none;
+  margin-left: 0.3rem;
+  padding: 0.3rem;
+  background-color: accent-color;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+}

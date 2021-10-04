@@ -1,0 +1,74 @@
+@value accent-color, smokywhite from "/src/common/color.css";
+
+.container {
+  display: flex;
+  width: 31rem;
+  height: 5.5rem;
+  border: 1px solid black;
+  padding: 0.5rem;
+  margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px;
+}
+
+.thumbnail {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+.description {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: start;
+  flex: 100%;
+  margin-left: 1rem;
+}
+
+.user {
+  display: flex;
+  height: 1rem;
+  align-items: center;
+}
+
+.user_name,
+.user_id,
+.user_createdAt {
+  margin: 0;
+  margin-right: 0.2rem;
+}
+
+.user_name {
+  font-size: 1rem;
+}
+.user_id {
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: accent-color;
+}
+.user_createdAt {
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #969696;
+}
+
+.text {
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.button_container {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.deleteBtn,
+.modifyBtn {
+  background-color: transparent;
+  border: none;
+  color: accent-color;
+  cursor: pointer;
+  font-size: 0.8rem;
+}

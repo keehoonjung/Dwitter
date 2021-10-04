@@ -1,0 +1,6 @@
+@value edit-bg-color from "/src/common/color.css";
+
+.container {
+  background-color: edit-bg-color;
+  padding: 1rem;
+}
