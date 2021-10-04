@@ -5,23 +5,12 @@ const Login = (props: any) => {
   const [onCreate, setOnCreate] = useState(false);
   const checkboxRef = useRef<HTMLInputElement>(null);
   const onChange = () => {
-    setOnCreate(checkboxRef.current!.checked);
+    console.log(checkboxRef.current!.checked);
   };
   return (
     <form className={styles.container}>
       <input className={styles.input} type="text" placeholder="Id" />
       <input className={styles.input} type="text" placeholder="Password" />
-      {onCreate && (
-        <>
-          <input className={styles.input} type="text" placeholder="Name" />
-          <input className={styles.input} type="text" placeholder="Email" />
-          <input
-            className={styles.input}
-            type="text"
-            placeholder="Profile Image URL"
-          />
-        </>
-      )}
       <div className={styles.checkbox_container}>
         <input
           ref={checkboxRef}

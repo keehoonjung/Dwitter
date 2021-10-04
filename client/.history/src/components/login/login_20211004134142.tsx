@@ -13,13 +13,9 @@ const Login = (props: any) => {
       <input className={styles.input} type="text" placeholder="Password" />
       {onCreate && (
         <>
-          <input className={styles.input} type="text" placeholder="Name" />
           <input className={styles.input} type="text" placeholder="Email" />
-          <input
-            className={styles.input}
-            type="text"
-            placeholder="Profile Image URL"
-          />
+          <input className={styles.input} type="text" placeholder="Email" />
+          <input className={styles.input} type="text" placeholder="Email" />
         </>
       )}
       <div className={styles.checkbox_container}>
