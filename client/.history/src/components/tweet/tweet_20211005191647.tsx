@@ -1,12 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import {
-  deleteTweet,
-  getTweets,
-  TweetType,
-  updateTweets,
-} from "../../service/store";
+import { deleteTweet, getTweets, TweetType } from "../../service/store";
 import UpdateTweet from "../update_tweet/update_tweet";
 import styles from "./tweet.module.css";
 
@@ -17,7 +12,6 @@ type TweetPros = {
 };
 
 const Tweet = ({ item, index, dispatch }: TweetPros) => {
-  const [updatePaeneol, setUpdatePaeneol] = useState(false);
   const onClick = () => {
     dispatch(deleteTweet(index));
   };
@@ -26,22 +20,8 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
     dispatch(getTweets(item.useranme));
   };
 
-  const onUpdate = (text: string) => {
-    dispatch(updateTweets({ index, text }));
-  };
-
-  const onUpdatePaeneol = () => {
-    setUpdatePaeneol(true);
-  };
-
-  const offUpdatePaeneol = () => {
-    setUpdatePaeneol(false);
-  };
-
   return (
-    <li
-      className={`${styles.container} ${onUpdatePaeneolSetting(updatePaeneol)}`}
-    >
+    <li className={styles.container}>
       <img className={styles.thumbnail} src={item.url} alt="thumbnail" />
       <div className={styles.description}>
         <div className={styles.user}>
@@ -52,32 +32,21 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
           <p className={styles.user_createdAt}>
             {calculateDate(item.createdAt!)}
           </p>
+          <UpdateTweet />
         </div>
         <p className={styles.text}>{item.text}</p>
-        {updatePaeneol && (
-          <UpdateTweet
-            onUpdate={onUpdate}
-            offUpdatePaeneol={offUpdatePaeneol}
-          />
-        )}
       </div>
       <div className={styles.button_container}>
         <button className={styles.deleteBtn} onClick={onClick}>
           <i className="fas fa-times"></i>
         </button>
-        <button className={styles.updateBtn} onClick={onUpdatePaeneol}>
+        <button className={styles.modifyBtn}>
           <i className="fas fa-pencil-alt"></i>
         </button>
       </div>
     </li>
   );
 };
-
-function onUpdatePaeneolSetting(onUpdate: boolean) {
-  if (onUpdate) {
-    return styles.onUpdate;
-  }
-}
 
 function calculateDate(date: number) {
   const newDate = new Date(date);

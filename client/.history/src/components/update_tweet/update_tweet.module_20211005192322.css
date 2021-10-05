@@ -1,0 +1,21 @@
+.updateBtn {
+  width: 3.5rem;
+  padding: 0.2rem;
+  margin-right: 0.5rem;
+  border: none;
+  background-color: ;
+  font-size: 1rem;
+}
+
+.cancelBtn {
+  width: 3.5rem;
+  padding: 0.2rem;
+  border: none;
+  background-color: ;
+}
+
+.button_container {
+  margin-top: 0.4rem;
+  display: flex;
+  justify-content: end;
+}

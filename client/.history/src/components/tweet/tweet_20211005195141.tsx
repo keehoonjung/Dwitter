@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import {
-  deleteTweet,
-  getTweets,
-  TweetType,
-  updateTweets,
-} from "../../service/store";
+import { deleteTweet, getTweets, TweetType } from "../../service/store";
 import UpdateTweet from "../update_tweet/update_tweet";
 import styles from "./tweet.module.css";
 
@@ -17,7 +12,7 @@ type TweetPros = {
 };
 
 const Tweet = ({ item, index, dispatch }: TweetPros) => {
-  const [updatePaeneol, setUpdatePaeneol] = useState(false);
+  const [updatePannel, setUpdatePannel] = useState(false);
   const onClick = () => {
     dispatch(deleteTweet(index));
   };
@@ -26,21 +21,17 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
     dispatch(getTweets(item.useranme));
   };
 
-  const onUpdate = (text: string) => {
-    dispatch(updateTweets({ index, text }));
+  const onUpdatePannel = () => {
+    setUpdatePannel(true);
   };
 
-  const onUpdatePaeneol = () => {
-    setUpdatePaeneol(true);
-  };
-
-  const offUpdatePaeneol = () => {
-    setUpdatePaeneol(false);
+  const offUpdatePannel = () => {
+    setUpdatePannel(false);
   };
 
   return (
     <li
-      className={`${styles.container} ${onUpdatePaeneolSetting(updatePaeneol)}`}
+      className={`${styles.container} ${onUpdatePannelSetting(updatePannel)}`}
     >
       <img className={styles.thumbnail} src={item.url} alt="thumbnail" />
       <div className={styles.description}>
@@ -54,18 +45,13 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
           </p>
         </div>
         <p className={styles.text}>{item.text}</p>
-        {updatePaeneol && (
-          <UpdateTweet
-            onUpdate={onUpdate}
-            offUpdatePaeneol={offUpdatePaeneol}
-          />
-        )}
+        {updatePannel && <UpdateTweet offUpdatePannel={offUpdatePannel} />}
       </div>
       <div className={styles.button_container}>
         <button className={styles.deleteBtn} onClick={onClick}>
           <i className="fas fa-times"></i>
         </button>
-        <button className={styles.updateBtn} onClick={onUpdatePaeneol}>
+        <button className={styles.updateBtn} onClick={onUpdatePannel}>
           <i className="fas fa-pencil-alt"></i>
         </button>
       </div>
@@ -73,7 +59,7 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
   );
 };
 
-function onUpdatePaeneolSetting(onUpdate: boolean) {
+function onUpdatePannelSetting(onUpdate: boolean) {
   if (onUpdate) {
     return styles.onUpdate;
   }

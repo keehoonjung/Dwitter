@@ -83,15 +83,12 @@ const tweetsSlice = createSlice({
         return data.useranme === action.payload;
       });
     },
-    updateTweets: (state: TweetsState, action: updateTweetAction) => {
-      state.data[action.payload.index].text = action.payload.text;
-    },
+    updateTweets: (state: TweetsState, action: updateTweetAction) => {},
   },
 });
 
 const dataStore = configureStore({ reducer: tweetsSlice.reducer });
 
-export const { postTweet, deleteTweet, getTweets, updateTweets } =
-  tweetsSlice.actions;
+export const { postTweet, deleteTweet, getTweets } = tweetsSlice.actions;
 
 export default dataStore;

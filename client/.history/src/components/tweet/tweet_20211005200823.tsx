@@ -17,7 +17,7 @@ type TweetPros = {
 };
 
 const Tweet = ({ item, index, dispatch }: TweetPros) => {
-  const [updatePaeneol, setUpdatePaeneol] = useState(false);
+  const [updatepaeneol, setUpdatepaeneol] = useState(false);
   const onClick = () => {
     dispatch(deleteTweet(index));
   };
@@ -30,17 +30,17 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
     dispatch(updateTweets({ index, text }));
   };
 
-  const onUpdatePaeneol = () => {
-    setUpdatePaeneol(true);
+  const onUpdatepaeneol = () => {
+    setUpdatepaeneol(true);
   };
 
-  const offUpdatePaeneol = () => {
-    setUpdatePaeneol(false);
+  const offUpdatepaeneol = () => {
+    setUpdatepaeneol(false);
   };
 
   return (
     <li
-      className={`${styles.container} ${onUpdatePaeneolSetting(updatePaeneol)}`}
+      className={`${styles.container} ${onUpdatepaeneolSetting(updatepaeneol)}`}
     >
       <img className={styles.thumbnail} src={item.url} alt="thumbnail" />
       <div className={styles.description}>
@@ -54,10 +54,10 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
           </p>
         </div>
         <p className={styles.text}>{item.text}</p>
-        {updatePaeneol && (
+        {updatepaeneol && (
           <UpdateTweet
             onUpdate={onUpdate}
-            offUpdatePaeneol={offUpdatePaeneol}
+            offUpdatepaeneol={offUpdatepaeneol}
           />
         )}
       </div>
@@ -65,7 +65,7 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
         <button className={styles.deleteBtn} onClick={onClick}>
           <i className="fas fa-times"></i>
         </button>
-        <button className={styles.updateBtn} onClick={onUpdatePaeneol}>
+        <button className={styles.updateBtn} onClick={onUpdatepaeneol}>
           <i className="fas fa-pencil-alt"></i>
         </button>
       </div>
@@ -73,7 +73,7 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
   );
 };
 
-function onUpdatePaeneolSetting(onUpdate: boolean) {
+function onUpdatepaeneolSetting(onUpdate: boolean) {
   if (onUpdate) {
     return styles.onUpdate;
   }

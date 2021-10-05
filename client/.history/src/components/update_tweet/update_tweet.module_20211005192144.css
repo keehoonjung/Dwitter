@@ -1,0 +1,15 @@
+.updateBtn {
+  width: 4rem;
+  padding: 0.2rem;
+}
+
+.cancelBtn {
+  width: 4rem;
+  padding: 0.2rem;
+}
+
+.button_container {
+  margin-top: 0.3rem;
+  display: flex;
+  justify-content: end;
+}

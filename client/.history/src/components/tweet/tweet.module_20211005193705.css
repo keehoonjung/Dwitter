@@ -71,7 +71,7 @@
 }
 
 .deleteBtn,
-.updateBtn {
+.modifyBtn {
   background-color: transparent;
   border: none;
   color: accent-color;

@@ -91,7 +91,6 @@ const tweetsSlice = createSlice({
 
 const dataStore = configureStore({ reducer: tweetsSlice.reducer });
 
-export const { postTweet, deleteTweet, getTweets, updateTweets } =
-  tweetsSlice.actions;
+export const { postTweet, deleteTweet, getTweets } = tweetsSlice.actions;
 
 export default dataStore;

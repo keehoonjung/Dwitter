@@ -1,0 +1,27 @@
+@value accent-color, button-red-color from "/src/common/color.css";
+
+.updateBtn {
+  width: 3.5rem;
+  padding: 0.2rem;
+  margin-right: 0.5rem;
+  border: none;
+  color: 
+  background-color: ;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.cancelBtn {
+  width: 3.5rem;
+  padding: 0.2rem;
+  border: none;
+  background-color: ;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.button_container {
+  margin-top: 0.4rem;
+  display: flex;
+  justify-content: end;
+}

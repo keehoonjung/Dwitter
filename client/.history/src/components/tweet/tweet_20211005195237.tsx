@@ -17,7 +17,7 @@ type TweetPros = {
 };
 
 const Tweet = ({ item, index, dispatch }: TweetPros) => {
-  const [updatePaeneol, setUpdatePaeneol] = useState(false);
+  const [updatePannel, setUpdatePannel] = useState(false);
   const onClick = () => {
     dispatch(deleteTweet(index));
   };
@@ -30,17 +30,17 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
     dispatch(updateTweets({ index, text }));
   };
 
-  const onUpdatePaeneol = () => {
-    setUpdatePaeneol(true);
+  const onUpdatePannel = () => {
+    setUpdatePannel(true);
   };
 
-  const offUpdatePaeneol = () => {
-    setUpdatePaeneol(false);
+  const offUpdatePannel = () => {
+    setUpdatePannel(false);
   };
 
   return (
     <li
-      className={`${styles.container} ${onUpdatePaeneolSetting(updatePaeneol)}`}
+      className={`${styles.container} ${onUpdatePannelSetting(updatePannel)}`}
     >
       <img className={styles.thumbnail} src={item.url} alt="thumbnail" />
       <div className={styles.description}>
@@ -54,18 +54,13 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
           </p>
         </div>
         <p className={styles.text}>{item.text}</p>
-        {updatePaeneol && (
-          <UpdateTweet
-            onUpdate={onUpdate}
-            offUpdatePaeneol={offUpdatePaeneol}
-          />
-        )}
+        {updatePannel && <UpdateTweet offUpdatePannel={offUpdatePannel} />}
       </div>
       <div className={styles.button_container}>
         <button className={styles.deleteBtn} onClick={onClick}>
           <i className="fas fa-times"></i>
         </button>
-        <button className={styles.updateBtn} onClick={onUpdatePaeneol}>
+        <button className={styles.updateBtn} onClick={onUpdatePannel}>
           <i className="fas fa-pencil-alt"></i>
         </button>
       </div>
@@ -73,7 +68,7 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
   );
 };
 
-function onUpdatePaeneolSetting(onUpdate: boolean) {
+function onUpdatePannelSetting(onUpdate: boolean) {
   if (onUpdate) {
     return styles.onUpdate;
   }
