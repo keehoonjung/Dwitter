@@ -1,9 +1,10 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { stat } from "fs";
 
 export type TweetType = {
   id: string;
-  createdAt: number;
   text: string;
+  createdAt: Date;
   name: string;
   useranme: string;
   url: string;
@@ -27,7 +28,7 @@ type postTweetAction = {
 
 type deleteTweetAction = {
   type: string;
-  payload: number;
+  payload: string;
 };
 
 type getTweetAction = {
@@ -52,9 +53,9 @@ const tweetData = [
   {
     id: "12345",
     text: "Hello",
-    createdAt: Date.now(),
+    createdAt: new Date(),
     name: "JK",
-    useranme: "SONG",
+    useranme: "JK",
     url: "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
   },
 ];
@@ -68,14 +69,22 @@ const tweetsSlice = createSlice({
   reducers: {
     postTweet: (state: TweetsState, action: postTweetAction) => {
       const tweet = action.payload;
-      state.data.unshift(tweet);
+      state.data.push(tweet);
     },
     deleteTweet: (state: TweetsState, action: deleteTweetAction) => {
-      state.data.splice(action.payload, 1);
+      delete state.data[action.payload];
     },
     getTweets: (state: TweetsState, action: getTweetAction) => {
-      state.data = state.data.filter((data) => {
-        return data.useranme === action.payload;
+      const newData = { ...state.data };
+      const keys = Object.keys(newData).filter((key) => {
+        return newData[key].useranme === action.payload;
+      });
+      const newState: { [tweetId: string]: TweetType } = {};
+      keys.forEach((key) => {
+        newState[key] = newData[key];
+      });
+      Object.keys(state.data).forEach((key) => {
+        state.data[key] = newState[key];
       });
     },
   },

@@ -15,7 +15,7 @@ const PostTweet = ({ dispatch }: PostTweetProps) => {
     const text = inputRef.current!.value;
     const tweet = {
       id: Date.now().toString(),
-      createdAt: Date.now(),
+      createdAt: null,
       text,
       name: "JK",
       useranme: "JK",

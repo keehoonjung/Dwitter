@@ -25,11 +25,11 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
       <div className={styles.description}>
         <div className={styles.user}>
           <h3 className={styles.user_name}>{item.name}</h3>
-          <a className={styles.user_id} href="#" onClick={onLink}>
+          <a className={styles.user_id} href={`#`} onClick={onLink}>
             {item.useranme}
           </a>
           <p className={styles.user_createdAt}>
-            {calculateDate(item.createdAt!)}
+            {calculateDate(item.createdAt)}
           </p>
         </div>
         <p className={styles.text}>{item.text}</p>
@@ -46,15 +46,14 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
   );
 };
 
-function calculateDate(date: number) {
-  const newDate = new Date(date);
-  const diffDate = Date.now() - date;
+function calculateDate(date: Date) {
+  const diffDate = Date.now() - date.getTime();
   const second = Math.floor(diffDate / 1000);
   const minute = Math.floor(second / 60);
   const hour = Math.floor(minute / 60);
   const day = Math.floor(hour / 24);
   if (day >= 30) {
-    return `· on ${newDate.getMonth()}월 ${newDate.getDate()} `;
+    return `· on ${date.getMonth}월 ${date.getDate} `;
   }
   if (day >= 1) {
     return `· ${day} days ago`;
@@ -64,6 +63,9 @@ function calculateDate(date: number) {
   }
   if (minute >= 1) {
     return `· ${minute} minute ago`;
+  }
+  if (second >= 1) {
+    return `· ${second} minute ago`;
   }
   return `· just now`;
 }

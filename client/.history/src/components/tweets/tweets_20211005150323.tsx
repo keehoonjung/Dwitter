@@ -5,14 +5,14 @@ import Tweet from "../tweet/tweet";
 import styles from "./tweets.module.css";
 
 type TweetsProps = {
-  data: TweetType[];
+  data: TweetType[] ;
 };
 
 const Tweets = ({ data }: TweetsProps) => {
   return (
     <ul className={styles.container}>
-      {data.map((item, index) => {
-        return <Tweet key={item.id} item={item} index={index} />;
+      {data.map((item,index)=>{
+        return <Tweet key={item.id} item={item} index={index}
       })}
     </ul>
   );

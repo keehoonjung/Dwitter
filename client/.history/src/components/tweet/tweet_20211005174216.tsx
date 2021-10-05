@@ -25,7 +25,7 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
       <div className={styles.description}>
         <div className={styles.user}>
           <h3 className={styles.user_name}>{item.name}</h3>
-          <a className={styles.user_id} href="#" onClick={onLink}>
+          <a className={styles.user_id} href={`#`} onClick={onLink}>
             {item.useranme}
           </a>
           <p className={styles.user_createdAt}>

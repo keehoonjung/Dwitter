@@ -6,7 +6,7 @@ import styles from "./tweet.module.css";
 
 type TweetPros = {
   item: TweetType;
-  index: number;
+  index: Number;
   dispatch: Dispatch;
 };
 
@@ -28,9 +28,7 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
           <a className={styles.user_id} href="#" onClick={onLink}>
             {item.useranme}
           </a>
-          <p className={styles.user_createdAt}>
-            {calculateDate(item.createdAt!)}
-          </p>
+          <p className={styles.user_createdAt}>{item.createdAt.toString()}</p>
         </div>
         <p className={styles.text}>{item.text}</p>
       </div>
@@ -45,28 +43,6 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
     </li>
   );
 };
-
-function calculateDate(date: number) {
-  const newDate = new Date(date);
-  const diffDate = Date.now() - date;
-  const second = Math.floor(diffDate / 1000);
-  const minute = Math.floor(second / 60);
-  const hour = Math.floor(minute / 60);
-  const day = Math.floor(hour / 24);
-  if (day >= 30) {
-    return `· on ${newDate.getMonth()}월 ${newDate.getDate()} `;
-  }
-  if (day >= 1) {
-    return `· ${day} days ago`;
-  }
-  if (hour >= 1) {
-    return `· ${hour} hours ago`;
-  }
-  if (minute >= 1) {
-    return `· ${minute} minute ago`;
-  }
-  return `· just now`;
-}
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return {

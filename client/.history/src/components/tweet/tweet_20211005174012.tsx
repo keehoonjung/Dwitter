@@ -16,7 +16,9 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
   };
 
   const onLink = () => {
-    dispatch(getTweets(item.useranme));
+    console.log(item.createdAt);
+
+    // dispatch(getTweets(item.useranme));
   };
 
   return (
@@ -25,7 +27,7 @@ const Tweet = ({ item, index, dispatch }: TweetPros) => {
       <div className={styles.description}>
         <div className={styles.user}>
           <h3 className={styles.user_name}>{item.name}</h3>
-          <a className={styles.user_id} href="#" onClick={onLink}>
+          <a className={styles.user_id} href={`#`} onClick={onLink}>
             {item.useranme}
           </a>
           <p className={styles.user_createdAt}>
@@ -54,7 +56,7 @@ function calculateDate(date: number) {
   const hour = Math.floor(minute / 60);
   const day = Math.floor(hour / 24);
   if (day >= 30) {
-    return `· on ${newDate.getMonth()}월 ${newDate.getDate()} `;
+    return `· on ${date.getMonth}월 ${date.getDate} `;
   }
   if (day >= 1) {
     return `· ${day} days ago`;

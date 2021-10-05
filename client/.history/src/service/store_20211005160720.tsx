@@ -1,9 +1,10 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { stat } from "fs";
 
 export type TweetType = {
   id: string;
-  createdAt: number;
   text: string;
+  createdAt: Date;
   name: string;
   useranme: string;
   url: string;
@@ -68,7 +69,7 @@ const tweetsSlice = createSlice({
   reducers: {
     postTweet: (state: TweetsState, action: postTweetAction) => {
       const tweet = action.payload;
-      state.data.unshift(tweet);
+      state.data.push(tweet);
     },
     deleteTweet: (state: TweetsState, action: deleteTweetAction) => {
       state.data.splice(action.payload, 1);

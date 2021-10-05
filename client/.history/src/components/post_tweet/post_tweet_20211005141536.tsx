@@ -15,10 +15,10 @@ const PostTweet = ({ dispatch }: PostTweetProps) => {
     const text = inputRef.current!.value;
     const tweet = {
       id: Date.now().toString(),
-      createdAt: Date.now(),
       text,
+      createdAt: new Date(),
       name: "JK",
-      useranme: "JK",
+      useranme: "ddd",
       url: "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
     };
     dispatch(postTweet(tweet));
