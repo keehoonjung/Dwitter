@@ -1,4 +1,5 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { ListFormat } from "typescript";
 
 export type TweetType = {
   id: string;
@@ -67,7 +68,15 @@ const tweetsSlice = createSlice({
     deleteTweet: (state: TweetsState, action: deleteTweetAction) => {
       state.data.splice(action.payload, 1);
     },
-    getTweets: (state: TweetsState, action: getTweetAction) => {},
+    getTweets: (state: TweetsState, action: getTweetAction) => {
+      fetch(`http://localhost:8080/tweets/`) //
+        .then((response) => {
+          return response.json();
+        })
+        .then((result) => {
+          console.log(typeof result);
+        });
+    },
     updateTweets: (state: TweetsState, action: updateTweetAction) => {
       state.data[action.payload.index].text = action.payload.text;
     },

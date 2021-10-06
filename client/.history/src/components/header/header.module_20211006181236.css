@@ -1,4 +1,4 @@
-@value head-main-color, smokywhite, accent-color from "/src/common/color.css";
+@value black, smokywhite, accent-color from "/src/common/color.css";
 
 .header {
   width: 32rem;
@@ -6,8 +6,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: head-main-color;
-  color: white;
+  background-color: black;
+  color: smokywhite;
 }
 
 .header_container {
@@ -29,20 +29,5 @@
 .username {
   font-size: 0.8rem;
   color: accent-color;
-  margin-top: 1.5rem;
-}
-
-.menu_container {
-  margin-right: 0.8rem;
-}
-
-.button,
-.logoutBtn {
-  border: none;
-  background-color: transparent;
-  color: white;
-}
-
-.logoutBtn {
-  font-weight: bold;
+  margin-top: 3rem;
 }

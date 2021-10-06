@@ -53,6 +53,26 @@ const userData = {
   },
 };
 
+// const tweetData = fetch("http://localhost:8080/tweets") //
+//   .then((response) => {
+//     const result = response.json();
+//     return result;
+//   })
+//   .then((result: Promise<any>) => {
+//     const data = result;
+//   });
+
+// [
+//   {
+//     id: "12345",
+//     text: "Hello",
+//     createdAt: Date.now(),
+//     name: "JK",
+//     useranme: "SONG",
+//     url: "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
+//   },
+// ];
+
 const tweetsSlice = createSlice({
   name: "Tweets",
   initialState: {
@@ -67,7 +87,19 @@ const tweetsSlice = createSlice({
     deleteTweet: (state: TweetsState, action: deleteTweetAction) => {
       state.data.splice(action.payload, 1);
     },
-    getTweets: (state: TweetsState, action: getTweetAction) => {},
+    getTweets: (state: TweetsState, action: getTweetAction) => {
+      const tweetData = fetch(`http://localhost:8080/tweets/${action.payload}`) //
+        .then((response) => {
+          console.log(response);
+
+          const result = response.json();
+          return result;
+        })
+        .then((result: Promise<TweetType[]>) => {
+          const data = result;
+          console.log(data);
+        });
+    },
     updateTweets: (state: TweetsState, action: updateTweetAction) => {
       state.data[action.payload.index].text = action.payload.text;
     },

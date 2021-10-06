@@ -1,4 +1,4 @@
-@value head-main-color, smokywhite, accent-color from "/src/common/color.css";
+@value black, smokywhite, accent-color from "/src/common/color.css";
 
 .header {
   width: 32rem;
@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: head-main-color;
+  background-color: black;
   color: white;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .menu_container {
-  margin-right: 0.8rem;
+  margin-right: 1rem;
 }
 
 .button,
@@ -41,8 +41,4 @@
   border: none;
   background-color: transparent;
   color: white;
-}
-
-.logoutBtn {
-  font-weight: bold;
 }
