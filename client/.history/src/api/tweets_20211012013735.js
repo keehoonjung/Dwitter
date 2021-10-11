@@ -38,14 +38,10 @@ export const deleteTweet = async (id) => {
 };
 
 export const updateTweet = async (id, text) => {
-  const tweet = await fetch(`${url}/${id}`, {
+  await fetch(`${url}/${id}`, {
     method: "put",
     body: JSON.stringify({
       text,
     }),
-  }) //
-    .then((res) => res.json())
-    .then((res) => res);
-
-  return tweet;
+  });
 };

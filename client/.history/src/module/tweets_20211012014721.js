@@ -46,6 +46,7 @@ export const deleteTweet = (id) => async (dispatch) => {
 export const updateTweet = (id, text) => async (dispatch) => {
   try {
     const payload = await tweetsAPI.updateTweet(id, text);
+    console.log(payload);
     dispatch({ type: UPDATE_TWEET, payload, meta: id });
   } catch (e) {
     console.log(e);

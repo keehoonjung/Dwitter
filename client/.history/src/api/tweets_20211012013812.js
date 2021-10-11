@@ -44,7 +44,7 @@ export const updateTweet = async (id, text) => {
       text,
     }),
   }) //
-    .then((res) => res.json())
+    .then((res) => res.json)
     .then((res) => res);
 
   return tweet;

@@ -46,7 +46,7 @@ export const deleteTweet = (id) => async (dispatch) => {
 export const updateTweet = (id, text) => async (dispatch) => {
   try {
     const payload = await tweetsAPI.updateTweet(id, text);
-    dispatch({ type: UPDATE_TWEET, payload, meta: id });
+    dispatch({ type: UPDATE_TWEET, payload });
   } catch (e) {
     console.log(e);
   }
@@ -78,21 +78,6 @@ export default function tweets(state = initialState, action) {
           ...state.posts,
           data: state.posts.data
             ? state.posts.data.filter((tweet) => tweet.id !== action.payload)
-            : null,
-        },
-      };
-    case UPDATE_TWEET:
-      return {
-        ...state,
-        posts: {
-          ...state.posts,
-          data: state.posts.data
-            ? state.posts.data.map((tweet) => {
-                if (tweet.id !== action.meta) {
-                  return tweet;
-                }
-                return action.payload;
-              })
             : null,
         },
       };
