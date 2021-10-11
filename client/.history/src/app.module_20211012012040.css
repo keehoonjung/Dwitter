@@ -1,0 +1,21 @@
+@value bg-main-color, main-bg-color from "/src/common/color.css";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: bg-main-color;
+}
+
+.main_container {
+  height: 100%;
+  width: 32rem;
+  background-color: main-bg-color;
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: red;
+}
