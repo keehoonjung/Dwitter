@@ -1,15 +1,18 @@
 import express from "express";
+import cors from "cors";
 
 let users = {
   JK: {
     name: "JK",
     useranme: "JK",
-    url: "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
+    url:
+      "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
   },
   song: {
     name: "songsong",
     useranme: "song",
-    url: "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
+    url:
+      "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
   },
 };
 
@@ -20,7 +23,8 @@ let tweets = [
     createdAt: Date.now(),
     name: "SONG",
     useranme: "SONG",
-    url: "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
+    url:
+      "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
   },
   {
     id: "34144",
@@ -28,7 +32,8 @@ let tweets = [
     createdAt: Date.now(),
     name: "JK",
     useranme: "JK",
-    url: "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
+    url:
+      "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
   },
   {
     id: "12333345",
@@ -36,11 +41,14 @@ let tweets = [
     createdAt: Date.now(),
     name: "JK",
     useranme: "JK",
-    url: "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
+    url:
+      "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
   },
 ];
 
 const app = express();
+
+app.use(cors());
 
 app.get("/tweets", (req, res) => {
   const username = req.query.username;
@@ -100,4 +108,3 @@ app.delete("/tweets/:id", (req, res) => {
 });
 
 app.listen(8080);
-console.log("hello");
