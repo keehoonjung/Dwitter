@@ -55,7 +55,7 @@ export const reducerUtils = {
   }),
 };
 
-const handleAsyncActions = (callback) => {
+export const handleAsyncActions = (callback) => {
   return (type, key) => {
     const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
     return (state, action) => {

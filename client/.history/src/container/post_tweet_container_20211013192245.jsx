@@ -6,7 +6,7 @@ import { postTweet } from "../module/tweets";
 const PostTweetContainer = (props) => {
   const dispatch = useDispatch();
   const onPostTweet = (text, name, username) => {
-    dispatch(postTweet({ text, name, username }));
+    dispatch(postTweet(text, name, username));
   };
 
   return <PostTweet onPostTweet={onPostTweet} />;

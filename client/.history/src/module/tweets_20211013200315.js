@@ -2,8 +2,8 @@ import * as tweetsAPI from "../api/tweets";
 import {
   createPromiseThunk,
   createPromiseThunkById,
+  handleAsyncActions,
   handleAsyncDeleteActions,
-  handleAsyncGetActions,
   handleAsyncPostActions,
   handleAsyncUpdateActions,
   reducerUtils,
@@ -55,11 +55,11 @@ export default function tweets(state = initialState, action) {
     case GET_TWEETS:
     case GET_TWEETS_SUCCESS:
     case GET_TWEETS_ERROR:
-      return handleAsyncGetActions(GET_TWEETS, "posts")(state, action);
+      return handleAsyncActions(GET_TWEETS, "posts")(state, action);
     case GET_TWEET:
     case GET_TWEET_SUCCESS:
     case GET_TWEET_ERROR:
-      return handleAsyncGetActions(GET_TWEET, "post")(state, action);
+      return handleAsyncActions(GET_TWEET, "post")(state, action);
     case POST_TWEET:
     case POST_TWEET_SUCCESS:
     case POST_TWEET_ERROR:

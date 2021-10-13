@@ -55,13 +55,13 @@ export const reducerUtils = {
   }),
 };
 
-const handleAsyncActions = (callback) => {
+export const handleAsyncActions = (callback) => {
   return (type, key) => {
     const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
     return (state, action) => {
       switch (action.type) {
         case type:
-          const prevState = state[key] && state[key].data;
+          const prevState = state[key].data;
           return {
             ...state,
             [key]: prevState
@@ -110,28 +110,46 @@ const deleteAsyncActionCallback = (key, state, action) => ({
   },
 });
 
-const updateAsyncActionCallback = (key, state, action) => ({
-  ...state,
-  posts: {
-    ...state.posts,
-    data: state.posts.data
-      ? state.posts.data.map((tweet) => {
-          if (tweet.id !== action.meta) {
-            return tweet;
-          }
-          return action.payload;
-        })
-      : null,
-  },
-});
-
 export const handleAsyncGetActions = handleAsyncActions(getAsyncActionCallback);
 export const handleAsyncPostActions = handleAsyncActions(
   postAsyncActionCallback
 );
+
 export const handleAsyncDeleteActions = handleAsyncActions(
   deleteAsyncActionCallback
 );
-export const handleAsyncUpdateActions = handleAsyncActions(
-  updateAsyncActionCallback
-);
+
+export const handleAsyncUpdateActions = (type, key) => {
+  const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
+  return (state, action) => {
+    switch (action.type) {
+      case type:
+        return {
+          ...state,
+          [key]: reducerUtils.loading(),
+        };
+      case SUCCESS:
+        return {
+          ...state,
+          posts: {
+            ...state.posts,
+            data: state.posts.data
+              ? state.posts.data.map((tweet) => {
+                  if (tweet.id !== action.meta) {
+                    return tweet;
+                  }
+                  return action.payload;
+                })
+              : null,
+          },
+        };
+      case ERROR:
+        return {
+          ...state,
+          [key]: reducerUtils.error(action.payload),
+        };
+      default:
+        return state;
+    }
+  };
+};

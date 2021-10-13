@@ -2,10 +2,9 @@ import * as tweetsAPI from "../api/tweets";
 import {
   createPromiseThunk,
   createPromiseThunkById,
+  handleAsyncActions,
   handleAsyncDeleteActions,
-  handleAsyncGetActions,
   handleAsyncPostActions,
-  handleAsyncUpdateActions,
   reducerUtils,
 } from "../util/async_utils";
 
@@ -26,8 +25,6 @@ const DELETE_TWEET_SUCCESS = "DELETE_TWEET_SUCCESS";
 const DELETE_TWEET_ERROR = "DELETE_TWEET_ERROR";
 
 const UPDATE_TWEET = "UPDATE_TWEET";
-const UPDATE_TWEET_SUCCESS = "UPDATE_TWEET_SUCCESS";
-const UPDATE_TWEET_ERROR = "UPDATE_TWEET_ERROR";
 
 export const getTweets = createPromiseThunk(GET_TWEETS, tweetsAPI.getTweets);
 export const getTweet = createPromiseThunkById(
@@ -35,15 +32,19 @@ export const getTweet = createPromiseThunkById(
   tweetsAPI.getTweetById
 );
 export const postTweet = createPromiseThunk(POST_TWEET, tweetsAPI.postTweet);
-export const deleteTweet = createPromiseThunkById(
+export const deleteTweet = createPromiseThunk(
   DELETE_TWEET,
   tweetsAPI.deleteTweet
 );
-export const updateTweet = createPromiseThunkById(
-  UPDATE_TWEET,
-  tweetsAPI.updateTweet,
-  (param) => param.id
-);
+
+export const updateTweet = (id, text) => async (dispatch) => {
+  try {
+    const payload = await tweetsAPI.updateTweet(id, text);
+    dispatch({ type: UPDATE_TWEET, payload, meta: id });
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 const initialState = {
   posts: reducerUtils.initial(),
@@ -55,11 +56,11 @@ export default function tweets(state = initialState, action) {
     case GET_TWEETS:
     case GET_TWEETS_SUCCESS:
     case GET_TWEETS_ERROR:
-      return handleAsyncGetActions(GET_TWEETS, "posts")(state, action);
+      return handleAsyncActions(GET_TWEETS, "posts")(state, action);
     case GET_TWEET:
     case GET_TWEET_SUCCESS:
     case GET_TWEET_ERROR:
-      return handleAsyncGetActions(GET_TWEET, "post")(state, action);
+      return handleAsyncActions(GET_TWEET, "post")(state, action);
     case POST_TWEET:
     case POST_TWEET_SUCCESS:
     case POST_TWEET_ERROR:
@@ -69,9 +70,20 @@ export default function tweets(state = initialState, action) {
     case DELETE_TWEET_ERROR:
       return handleAsyncDeleteActions(DELETE_TWEET, "delete")(state, action);
     case UPDATE_TWEET:
-    case UPDATE_TWEET_SUCCESS:
-    case UPDATE_TWEET_ERROR:
-      return handleAsyncUpdateActions(UPDATE_TWEET, "update")(state, action);
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          data: state.posts.data
+            ? state.posts.data.map((tweet) => {
+                if (tweet.id !== action.meta) {
+                  return tweet;
+                }
+                return action.payload;
+              })
+            : null,
+        },
+      };
     default:
       return state;
   }

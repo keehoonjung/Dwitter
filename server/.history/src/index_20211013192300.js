@@ -73,7 +73,7 @@ app.post("/tweets", (req, res) => {
     tweet["createAt"] = Date.now();
     tweet["url"] = users.JK.url;
     console.log(tweet);
-    tweets.splice(0, 0, tweet);
+    tweets.push(tweet);
     res.status(201).send(tweet);
   });
 });

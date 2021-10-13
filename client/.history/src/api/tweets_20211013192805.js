@@ -37,7 +37,7 @@ export const deleteTweet = async (id) => {
   }); //
 };
 
-export const updateTweet = async ({ id, text }) => {
+export const updateTweet = async (id, text) => {
   const tweet = await fetch(`${url}/${id}`, {
     method: "put",
     body: JSON.stringify({
@@ -46,5 +46,6 @@ export const updateTweet = async ({ id, text }) => {
   }) //
     .then((res) => res.json())
     .then((res) => res);
+
   return tweet;
 };

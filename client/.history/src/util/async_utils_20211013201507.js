@@ -55,18 +55,15 @@ export const reducerUtils = {
   }),
 };
 
-const handleAsyncActions = (callback) => {
+export const handleAsyncActions = (callback) => {
   return (type, key) => {
     const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
     return (state, action) => {
       switch (action.type) {
         case type:
-          const prevState = state[key] && state[key].data;
           return {
             ...state,
-            [key]: prevState
-              ? reducerUtils.loading(prevState)
-              : reducerUtils.loading(),
+            [key]: reducerUtils.loading(),
           };
         case SUCCESS:
           return callback(key, state, action);
@@ -89,7 +86,7 @@ const getAsyncActionCallback = (key, state, action) => ({
 
 const postAsyncActionCallback = (key, state, action) => {
   const result = action.payload;
-  console.log(state);
+  console.log(result);
   return {
     ...state,
     [key]: {
@@ -100,38 +97,72 @@ const postAsyncActionCallback = (key, state, action) => {
   };
 };
 
-const deleteAsyncActionCallback = (key, state, action) => ({
-  ...state,
-  posts: {
-    ...state.posts,
-    data: state.posts.data
-      ? state.posts.data.filter((tweet) => tweet.id !== action.meta)
-      : null,
-  },
-});
-
-const updateAsyncActionCallback = (key, state, action) => ({
-  ...state,
-  posts: {
-    ...state.posts,
-    data: state.posts.data
-      ? state.posts.data.map((tweet) => {
-          if (tweet.id !== action.meta) {
-            return tweet;
-          }
-          return action.payload;
-        })
-      : null,
-  },
-});
-
 export const handleAsyncGetActions = handleAsyncActions(getAsyncActionCallback);
 export const handleAsyncPostActions = handleAsyncActions(
   postAsyncActionCallback
 );
-export const handleAsyncDeleteActions = handleAsyncActions(
-  deleteAsyncActionCallback
-);
-export const handleAsyncUpdateActions = handleAsyncActions(
-  updateAsyncActionCallback
-);
+
+export const handleAsyncDeleteActions = (type, key) => {
+  const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
+  return (state, action) => {
+    switch (action.type) {
+      case type:
+        return {
+          ...state,
+          [key]: reducerUtils.loading(),
+        };
+      case SUCCESS:
+        return {
+          ...state,
+          posts: {
+            ...state.posts,
+            data: state.posts.data
+              ? state.posts.data.filter((tweet) => tweet.id !== action.meta)
+              : null,
+          },
+        };
+      case ERROR:
+        return {
+          ...state,
+          [key]: reducerUtils.error(action.payload),
+        };
+      default:
+        return state;
+    }
+  };
+};
+
+export const handleAsyncUpdateActions = (type, key) => {
+  const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
+  return (state, action) => {
+    switch (action.type) {
+      case type:
+        return {
+          ...state,
+          [key]: reducerUtils.loading(),
+        };
+      case SUCCESS:
+        return {
+          ...state,
+          posts: {
+            ...state.posts,
+            data: state.posts.data
+              ? state.posts.data.map((tweet) => {
+                  if (tweet.id !== action.meta) {
+                    return tweet;
+                  }
+                  return action.payload;
+                })
+              : null,
+          },
+        };
+      case ERROR:
+        return {
+          ...state,
+          [key]: reducerUtils.error(action.payload),
+        };
+      default:
+        return state;
+    }
+  };
+};

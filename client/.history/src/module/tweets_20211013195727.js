@@ -2,10 +2,9 @@ import * as tweetsAPI from "../api/tweets";
 import {
   createPromiseThunk,
   createPromiseThunkById,
+  handleAsyncActions,
   handleAsyncDeleteActions,
-  handleAsyncGetActions,
   handleAsyncPostActions,
-  handleAsyncUpdateActions,
   reducerUtils,
 } from "../util/async_utils";
 
@@ -55,11 +54,11 @@ export default function tweets(state = initialState, action) {
     case GET_TWEETS:
     case GET_TWEETS_SUCCESS:
     case GET_TWEETS_ERROR:
-      return handleAsyncGetActions(GET_TWEETS, "posts")(state, action);
+      return handleAsyncActions(GET_TWEETS, "posts")(state, action);
     case GET_TWEET:
     case GET_TWEET_SUCCESS:
     case GET_TWEET_ERROR:
-      return handleAsyncGetActions(GET_TWEET, "post")(state, action);
+      return handleAsyncActions(GET_TWEET, "post")(state, action);
     case POST_TWEET:
     case POST_TWEET_SUCCESS:
     case POST_TWEET_ERROR:
@@ -69,9 +68,24 @@ export default function tweets(state = initialState, action) {
     case DELETE_TWEET_ERROR:
       return handleAsyncDeleteActions(DELETE_TWEET, "delete")(state, action);
     case UPDATE_TWEET:
-    case UPDATE_TWEET_SUCCESS:
-    case UPDATE_TWEET_ERROR:
-      return handleAsyncUpdateActions(UPDATE_TWEET, "update")(state, action);
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          data: state.posts.data
+            ? state.posts.data.map((tweet) => {
+                {
+                  action.payload;
+                }
+                console.log(tweet.id);
+                if (tweet.id !== action.meta) {
+                  return tweet;
+                }
+                return action.payload;
+              })
+            : null,
+        },
+      };
     default:
       return state;
   }
