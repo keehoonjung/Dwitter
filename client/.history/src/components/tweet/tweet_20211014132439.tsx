@@ -18,6 +18,8 @@ const Tweet = ({ item, index }: TweetPros) => {
     dispatch(deleteTweet(item.id));
   };
 
+  const onLink = () => {};
+
   const onUpdate = (text: string) => {
     const id = item.id;
     dispatch(updateTweet({ id, text }));

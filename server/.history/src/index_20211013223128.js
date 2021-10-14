@@ -52,9 +52,13 @@ app.get("/tweets", (req, res) => {
 
 app.get("/tweets/:id", (req, res) => {
   const id = req.params.id;
-  const tweet = tweets.filter((tweet) => tweet.username === id);
+  const tweet = tweets.filter((tweet) => tweet.id === id);
   res.writeHead(200, { "Contet-Type": "application/json" });
   res.end(JSON.stringify(tweet));
+});
+
+app.get("/tweets/:username", (req, res) => {
+  const username = req.params.username;
 });
 
 app.post("/tweets", (req, res) => {

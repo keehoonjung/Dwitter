@@ -41,13 +41,9 @@
   border: none;
   background-color: transparent;
   color: white;
+  text-decoration: none;
 }
 
 .logoutBtn {
   font-weight: bold;
-}
-
-.link {
-  text-decoration: none;
-  color: white;
 }

@@ -4,7 +4,6 @@ import Header from "./components/header/header";
 import Login from "./components/login/login";
 import PostTweetContainer from "./container/post_tweet_container";
 import TweetsContainer from "./container/tweets_container";
-import UserPage from "./page/user_page/user_page";
 
 function App() {
   return (
@@ -18,7 +17,7 @@ function App() {
             </section>
           </section>
         </Route>
-        <Route path={["/main"]} exact>
+        <Route path={["/main"]}>
           <section className={styles.container}>
             <Header login={true} />
             <PostTweetContainer />
@@ -27,7 +26,6 @@ function App() {
             </section>
           </section>
         </Route>
-        <Route path={["/main/:id"]} component={UserPage} />
       </Switch>
     </BrowserRouter>
   );

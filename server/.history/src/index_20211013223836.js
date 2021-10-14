@@ -52,10 +52,22 @@ app.get("/tweets", (req, res) => {
 
 app.get("/tweets/:id", (req, res) => {
   const id = req.params.id;
-  const tweet = tweets.filter((tweet) => tweet.username === id);
+  const tweet = tweets.filter((tweet) => tweet.id === id);
   res.writeHead(200, { "Contet-Type": "application/json" });
   res.end(JSON.stringify(tweet));
 });
+
+// app.get("/tweets/:username", (req, res) => {
+//   const username = req.params.username;
+//   console.log(req.params);
+//   console.log(username);
+//   if (username) {
+//     const userTweet = tweets.filter((tweet) => tweet.username === username);
+//     return res.end(JSON.stringify(userTweet));
+//   }
+//   res.writeHead(200, { "Contet-Type": "application/json" });
+//   res.end(JSON.stringify(userTweet));
+// });
 
 app.post("/tweets", (req, res) => {
   const body = [];

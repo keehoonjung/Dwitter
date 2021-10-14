@@ -45,14 +45,20 @@ const app = express();
 
 app.use(cors());
 
-app.get("/tweets", (req, res) => {
+app.get("/tweets/:username", (req, res) => {
+  const username = req.query.username;
+  console.log(req.params);
+  if (username) {
+    const userTweet = tweets.filter((tweet) => tweet.username === username);
+    return res.end(JSON.stringify(userTweet));
+  }
   res.writeHead(200, { "Contet-Type": "application/json" });
   res.end(JSON.stringify(tweets));
 });
 
 app.get("/tweets/:id", (req, res) => {
   const id = req.params.id;
-  const tweet = tweets.filter((tweet) => tweet.username === id);
+  const tweet = tweets.filter((tweet) => tweet.id === id);
   res.writeHead(200, { "Contet-Type": "application/json" });
   res.end(JSON.stringify(tweet));
 });

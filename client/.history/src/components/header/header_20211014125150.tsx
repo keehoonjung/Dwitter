@@ -1,31 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { match } from "react-router";
 import styles from "./header.module.css";
 
 type HeaderProps = {
   login: boolean;
+  match: match;
 };
 
-const Header = ({ login }: HeaderProps) => {
+const Header = ({ login, match }: HeaderProps) => {
   return (
     <header className={styles.header}>
       <div className={styles.header_container}>
-        <img className={styles.logo} src="/assets/logo.png" alt="logo" />
+        <img className={styles.logo} src="./images/logo.png" alt="logo" />
         <h1 className={styles.title}>Dwitter</h1>
         <p className={styles.username}>@userId</p>
       </div>
       {login && (
         <div className={styles.menu_container}>
-          <button className={styles.button}>
-            <Link className={styles.link} to="/main">
-              All Tweets
-            </Link>
-          </button>
-          <button className={styles.button}>
-            <Link className={styles.link} to="/main/JK">
-              My Tweets
-            </Link>
-          </button>
+          <button className={styles.button}>All Tweets</button>
+          <button className={styles.button}>My Tweets</button>
           <button className={styles.logoutBtn}>Logout</button>
         </div>
       )}

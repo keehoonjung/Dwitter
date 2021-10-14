@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { match } from "react-router";
 import styles from "./header.module.css";
 
 type HeaderProps = {
@@ -16,16 +16,8 @@ const Header = ({ login }: HeaderProps) => {
       </div>
       {login && (
         <div className={styles.menu_container}>
-          <button className={styles.button}>
-            <Link className={styles.link} to="/main">
-              All Tweets
-            </Link>
-          </button>
-          <button className={styles.button}>
-            <Link className={styles.link} to="/main/JK">
-              My Tweets
-            </Link>
-          </button>
+          <button className={styles.button}>All Tweets</button>
+          <button className={styles.button}>My Tweets</button>
           <button className={styles.logoutBtn}>Logout</button>
         </div>
       )}

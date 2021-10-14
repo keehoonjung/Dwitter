@@ -1,16 +1,18 @@
-const url = "http://localhost:8080/tweets";
+const url = "http://localhost:8080/tweets/users";
 
 export const getTweets = async () => {
   const tweets = await fetch(url)
     .then((res) => res.json())
     .then((res) => res);
+
   return tweets;
 };
 
-export const getTweetsById = async (id) => {
+export const getTweetById = async (id) => {
   const tweet = await fetch(`${url}/${id}`) //
     .then((res) => res.json())
     .then((res) => res);
+
   return tweet;
 };
 

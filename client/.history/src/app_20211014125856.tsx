@@ -18,7 +18,7 @@ function App() {
             </section>
           </section>
         </Route>
-        <Route path={["/main"]} exact>
+        <Route path={["/main"]}>
           <section className={styles.container}>
             <Header login={true} />
             <PostTweetContainer />
