@@ -6,11 +6,10 @@ import { logoutId } from "../module/users";
 const HeaderContainer = (props) => {
   const { login, data } = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
-  const onLogoutId = () => {
+  const onLogout = () => {
     dispatch(logoutId());
   };
-
-  return <Header login={login} data={data} onLogoutId={onLogoutId} />;
+  return <Header login={login} data={data} />;
 };
 
 export default HeaderContainer;

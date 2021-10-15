@@ -72,30 +72,6 @@ export default function users(state = initialState, action) {
           error: action.payload,
         },
       };
-    case LOGOUT_ID:
-      return {
-        user: {
-          ...state.user,
-          loading: true,
-        },
-      };
-    case LOGOUT_ID_SUCCESS:
-      return {
-        user: {
-          ...state.user,
-          loading: false,
-          login: false,
-          data: null,
-        },
-      };
-    case LOGOUT_ID_ERROR:
-      return {
-        user: {
-          ...state.user,
-          loading: false,
-          error: action.payload,
-        },
-      };
     default:
       return state;
   }

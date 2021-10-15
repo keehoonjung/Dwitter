@@ -36,14 +36,7 @@ const Header = ({ login, data, onLogoutId }: HeaderProps) => {
               My Tweets
             </Link>
           </button>
-          <button
-            className={styles.logoutBtn}
-            onClick={() => {
-              onLogoutId();
-            }}
-          >
-            Logout
-          </button>
+          <button className={styles.logoutBtn}>Logout</button>
         </div>
       )}
     </header>

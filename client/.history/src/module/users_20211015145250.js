@@ -88,14 +88,6 @@ export default function users(state = initialState, action) {
           data: null,
         },
       };
-    case LOGOUT_ID_ERROR:
-      return {
-        user: {
-          ...state.user,
-          loading: false,
-          error: action.payload,
-        },
-      };
     default:
       return state;
   }

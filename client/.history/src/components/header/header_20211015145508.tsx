@@ -13,10 +13,10 @@ type DataType = {
 type HeaderProps = {
   login: boolean;
   data: DataType | null;
-  onLogoutId(): void;
+  onLogoutId: void;
 };
 
-const Header = ({ login, data, onLogoutId }: HeaderProps) => {
+const Header = ({ login, data }: HeaderProps) => {
   return (
     <header className={styles.header}>
       <div className={styles.header_container}>
@@ -36,14 +36,7 @@ const Header = ({ login, data, onLogoutId }: HeaderProps) => {
               My Tweets
             </Link>
           </button>
-          <button
-            className={styles.logoutBtn}
-            onClick={() => {
-              onLogoutId();
-            }}
-          >
-            Logout
-          </button>
+          <button className={styles.logoutBtn}>Logout</button>
         </div>
       )}
     </header>
