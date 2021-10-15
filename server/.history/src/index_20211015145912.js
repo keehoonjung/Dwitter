@@ -71,6 +71,7 @@ app.post("/tweets", (req, res) => {
     tweet["id"] = Date.now().toString();
     tweet["createAt"] = Date.now();
     tweet["url"] = users.JK.url;
+    console.log(tweet);
     tweets.splice(0, 0, tweet);
     res.status(201).send(tweet);
   });
@@ -106,6 +107,8 @@ app.listen(8080);
 app.get("/users/:id", (req, res) => {
   const id = req.params.id;
   const user = users[id];
+  console.log(id);
+  console.log(user);
   res.writeHead(200, { "Contet-Type": "application/json" });
   res.end(JSON.stringify(user));
 });
@@ -113,10 +116,4 @@ app.get("/users/:id", (req, res) => {
 app.post("/users", (req, res) => {
   const body = [];
   req.on("data", (chunk) => body.push(chunk));
-  req.on("end", () => {
-    const user = JSON.parse(Buffer.concat(body).toString());
-    const id = user.username;
-    users[id] = user;
-    res.status(201).send(user);
-  });
 });

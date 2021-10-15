@@ -106,6 +106,8 @@ app.listen(8080);
 app.get("/users/:id", (req, res) => {
   const id = req.params.id;
   const user = users[id];
+  console.log(id);
+  console.log(user);
   res.writeHead(200, { "Contet-Type": "application/json" });
   res.end(JSON.stringify(user));
 });
@@ -115,8 +117,5 @@ app.post("/users", (req, res) => {
   req.on("data", (chunk) => body.push(chunk));
   req.on("end", () => {
     const user = JSON.parse(Buffer.concat(body).toString());
-    const id = user.username;
-    users[id] = user;
-    res.status(201).send(user);
   });
 });

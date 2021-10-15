@@ -115,8 +115,5 @@ app.post("/users", (req, res) => {
   req.on("data", (chunk) => body.push(chunk));
   req.on("end", () => {
     const user = JSON.parse(Buffer.concat(body).toString());
-    const id = user.username;
-    users[id] = user;
-    res.status(201).send(user);
   });
 });
