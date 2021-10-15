@@ -1,0 +1,47 @@
+@value accent-color, smokywhite from "/src/common/color.css";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+}
+
+.error {
+  background-color: #cc463d;
+  padding: 0.5rem;
+  color: white;
+  font-weight: bold;
+  width: 98%;
+  margin: auto;
+  margin-top: 0.4rem;
+}
+
+.input {
+  margin: 0.25rem 0;
+  padding: 1px 2px;
+  height: 1.5rem;
+  font-size: 1rem;
+}
+
+.checkbox_container {
+  margin-top: 0.5rem;
+}
+
+.checkbox {
+  margin-right: 0.5rem;
+}
+
+.checkbox_label {
+  font-size: 1rem;
+}
+
+.button {
+  border: none;
+  cursor: pointer;
+  background-color: accent-color;
+  color: white;
+  padding: 0.4rem;
+  margin: 1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
