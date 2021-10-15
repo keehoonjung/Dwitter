@@ -12,8 +12,8 @@ const PostTweet = ({ onPostTweet, user }) => {
     const text = inputRef.current.value;
     const tweet = {
       text,
-      name: user.name,
-      username: user.username,
+      name: "JK",
+      username: "SONG",
     };
     onPostTweet(tweet.text, tweet.name, tweet.username);
     inputRef.current.value = "";

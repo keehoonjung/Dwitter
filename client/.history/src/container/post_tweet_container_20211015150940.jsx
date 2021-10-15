@@ -10,7 +10,7 @@ const PostTweetContainer = (props) => {
     dispatch(postTweet({ text, name, username }));
   };
 
-  return <PostTweet onPostTweet={onPostTweet} user={data} />;
+  return <PostTweet onPostTweet={onPostTweet} />;
 };
 
 export default PostTweetContainer;
