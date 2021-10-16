@@ -1,4 +1,8 @@
 import { createUser, getUser } from "../api/users";
+import {
+  CreateIdPromiseThunk,
+  createLoginPromiseThunk,
+} from "../util/user_async_utils";
 
 const LOGIN_ID = "LOGIN_ID";
 const LOGIN_ID_SUCCESS = "LOGIN_ID_SUCCESS";
@@ -12,73 +16,13 @@ const CREATE_ID = "CREATE_ID";
 const CREATE_ID_SUCCESS = "CREATE_ID_SUCCESS";
 const CREATE_ID_ERROR = "CREATE_ID_ERROR";
 
-export const loginId = (id, password) => async (dispatch) => {
-  dispatch({ type: LOGIN_ID });
-  try {
-    const user = await getUser(id);
-    if (!user) {
-      return dispatch({
-        type: LOGIN_ID_ERROR,
-        payload: "Error: Invalid user or password fail",
-      });
-    } else {
-      user.password === password
-        ? dispatch({ type: LOGIN_ID_SUCCESS, payload: user })
-        : dispatch({
-            type: LOGIN_ID_ERROR,
-            payload: "Error: Invalid user or password fail",
-          });
-    }
-  } catch (e) {
-    dispatch({
-      type: LOGIN_ID_ERROR,
-      payload: e.toString(),
-    });
-  }
-};
+export const loginId = createLoginPromiseThunk(LOGIN_ID, getUser);
 
 export const logoutId = () => (dipatch) => {
-  dipatch({ type: LOGOUT_ID });
-  try {
-    dipatch({ type: LOGOUT_ID_SUCCESS });
-  } catch (e) {
-    dipatch({ type: LOGOUT_ID_ERROR, payload: e });
-  }
+  dipatch({ type: LOGOUT_ID_SUCCESS });
 };
 
-export const createId =
-  (username, password, name, email, url) => async (dipatch) => {
-    dipatch({ type: CREATE_ID });
-    if (password.length < 5) {
-      return dipatch({
-        type: CREATE_ID_ERROR,
-        payload: "Error: password should be at least 5 characters",
-      });
-    }
-    try {
-      const user = await getUser(username);
-      return dipatch({
-        type: CREATE_ID_ERROR,
-        payload: `Error: ${user.username} already exists`,
-      });
-    } catch (e) {}
-
-    try {
-      const payload = await createUser({
-        username,
-        password,
-        name,
-        email,
-        url,
-      });
-      dipatch({ type: CREATE_ID_SUCCESS, payload });
-    } catch (e) {
-      dipatch({
-        type: CREATE_ID_ERROR,
-        payload: e,
-      });
-    }
-  };
+export const createId = CreateIdPromiseThunk(CREATE_ID, createUser);
 
 const initialState = {
   user: {

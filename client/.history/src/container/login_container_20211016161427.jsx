@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Login from "../components/login/login";
-import { createId, loginId } from "../module/user";
+import { createId, loginId } from "../module/users";
 
 const LoginContainer = (props) => {
   const { loading, error, login } = useSelector((state) => state.user.user);

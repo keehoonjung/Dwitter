@@ -1,12 +1,12 @@
 import * as tweetsAPI from "../api/tweets";
 import {
   tweetsPromiseThunk,
-  tweetPromiseThunkById,
-  handleAsyncDeleteTweetActions,
-  handleAsyncGetTweetsActions,
-  handleAsyncPostTweetActions,
-  handleAsyncUpdateTweetActions,
-  tweetsReducerUtils,
+  TweetsPromiseThunkById,
+  handleAsyncDeleteActions,
+  handleAsyncGetActions,
+  handleAsyncPostActions,
+  handleAsyncUpdateActions,
+  reducerUtils,
 } from "../util/tweets_async_utils";
 
 const GET_TWEETS = "GET_TWEETS";
@@ -30,24 +30,24 @@ const UPDATE_TWEET_SUCCESS = "UPDATE_TWEET_SUCCESS";
 const UPDATE_TWEET_ERROR = "UPDATE_TWEET_ERROR";
 
 export const getTweets = tweetsPromiseThunk(GET_TWEETS, tweetsAPI.getTweets);
-export const getTweet = tweetPromiseThunkById(
+export const getTweet = TweetsPromiseThunkById(
   GET_TWEET,
   tweetsAPI.getTweetsById
 );
 export const postTweet = tweetsPromiseThunk(POST_TWEET, tweetsAPI.postTweet);
-export const deleteTweet = tweetPromiseThunkById(
+export const deleteTweet = TweetsPromiseThunkById(
   DELETE_TWEET,
   tweetsAPI.deleteTweet
 );
-export const updateTweet = tweetPromiseThunkById(
+export const updateTweet = TweetsPromiseThunkById(
   UPDATE_TWEET,
   tweetsAPI.updateTweet,
   (param) => param.id
 );
 
 const initialState = {
-  posts: tweetsReducerUtils.initial(),
-  post: tweetsReducerUtils.initial(),
+  posts: reducerUtils.initial(),
+  post: reducerUtils.initial(),
 };
 
 export default function tweets(state = initialState, action) {
@@ -55,29 +55,23 @@ export default function tweets(state = initialState, action) {
     case GET_TWEETS:
     case GET_TWEETS_SUCCESS:
     case GET_TWEETS_ERROR:
-      return handleAsyncGetTweetsActions(GET_TWEETS, "posts")(state, action);
+      return handleAsyncGetActions(GET_TWEETS, "posts")(state, action);
     case GET_TWEET:
     case GET_TWEET_SUCCESS:
     case GET_TWEET_ERROR:
-      return handleAsyncGetTweetsActions(GET_TWEET, "posts")(state, action);
+      return handleAsyncGetActions(GET_TWEET, "posts")(state, action);
     case POST_TWEET:
     case POST_TWEET_SUCCESS:
     case POST_TWEET_ERROR:
-      return handleAsyncPostTweetActions(POST_TWEET, "posts")(state, action);
+      return handleAsyncPostActions(POST_TWEET, "posts")(state, action);
     case DELETE_TWEET:
     case DELETE_TWEET_SUCCESS:
     case DELETE_TWEET_ERROR:
-      return handleAsyncDeleteTweetActions(DELETE_TWEET, "delete")(
-        state,
-        action
-      );
+      return handleAsyncDeleteActions(DELETE_TWEET, "delete")(state, action);
     case UPDATE_TWEET:
     case UPDATE_TWEET_SUCCESS:
     case UPDATE_TWEET_ERROR:
-      return handleAsyncUpdateTweetActions(UPDATE_TWEET, "update")(
-        state,
-        action
-      );
+      return handleAsyncUpdateActions(UPDATE_TWEET, "update")(state, action);
     default:
       return state;
   }

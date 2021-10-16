@@ -59,7 +59,7 @@ export default function tweets(state = initialState, action) {
     case GET_TWEET:
     case GET_TWEET_SUCCESS:
     case GET_TWEET_ERROR:
-      return handleAsyncGetTweetsActions(GET_TWEET, "posts")(state, action);
+      return handleAsyncGetActions(GET_TWEET, "posts")(state, action);
     case POST_TWEET:
     case POST_TWEET_SUCCESS:
     case POST_TWEET_ERROR:

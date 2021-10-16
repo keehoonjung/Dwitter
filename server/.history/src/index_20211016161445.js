@@ -106,6 +106,8 @@ app.listen(8080);
 app.get("/users/:id", (req, res) => {
   const id = req.params.id;
   const user = users[id];
+  console.log(id);
+  console.log(user);
   res.writeHead(200, { "Contet-Type": "application/json" });
   res.end(JSON.stringify(user));
 });

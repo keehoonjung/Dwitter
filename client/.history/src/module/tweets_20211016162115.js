@@ -2,10 +2,10 @@ import * as tweetsAPI from "../api/tweets";
 import {
   tweetsPromiseThunk,
   tweetPromiseThunkById,
-  handleAsyncDeleteTweetActions,
-  handleAsyncGetTweetsActions,
-  handleAsyncPostTweetActions,
-  handleAsyncUpdateTweetActions,
+  handleAsyncDeleteActions,
+  handleAsyncGetActions,
+  handleAsyncPostActions,
+  handleAsyncUpdateActions,
   tweetsReducerUtils,
 } from "../util/tweets_async_utils";
 
@@ -55,29 +55,23 @@ export default function tweets(state = initialState, action) {
     case GET_TWEETS:
     case GET_TWEETS_SUCCESS:
     case GET_TWEETS_ERROR:
-      return handleAsyncGetTweetsActions(GET_TWEETS, "posts")(state, action);
+      return handleAsyncGetActions(GET_TWEETS, "posts")(state, action);
     case GET_TWEET:
     case GET_TWEET_SUCCESS:
     case GET_TWEET_ERROR:
-      return handleAsyncGetTweetsActions(GET_TWEET, "posts")(state, action);
+      return handleAsyncGetActions(GET_TWEET, "posts")(state, action);
     case POST_TWEET:
     case POST_TWEET_SUCCESS:
     case POST_TWEET_ERROR:
-      return handleAsyncPostTweetActions(POST_TWEET, "posts")(state, action);
+      return handleAsyncPostActions(POST_TWEET, "posts")(state, action);
     case DELETE_TWEET:
     case DELETE_TWEET_SUCCESS:
     case DELETE_TWEET_ERROR:
-      return handleAsyncDeleteTweetActions(DELETE_TWEET, "delete")(
-        state,
-        action
-      );
+      return handleAsyncDeleteActions(DELETE_TWEET, "delete")(state, action);
     case UPDATE_TWEET:
     case UPDATE_TWEET_SUCCESS:
     case UPDATE_TWEET_ERROR:
-      return handleAsyncUpdateTweetActions(UPDATE_TWEET, "update")(
-        state,
-        action
-      );
+      return handleAsyncUpdateActions(UPDATE_TWEET, "update")(state, action);
     default:
       return state;
   }
