@@ -30,18 +30,15 @@ const Login = ({ onLoginId, onCreateId, error }: LoginStatus) => {
     const id = idRef.current!.value;
     const password = passwordRef.current!.value;
     if (onCreate) {
-      const name = nameRef.current!.value;
-      const email = emailRef.current!.value;
-      const url = urlRef.current!.value;
-
-      onCreateId(id, password, name, email, url);
-    } else {
-      onLoginId(id, password);
+      onCreateId();
     }
+    onLoginId(id, password);
   };
   return (
     <>
-      {error && <div className={styles.error}>{error}</div>}
+      {error && (
+        <div className={styles.error}>Error: Invalid user or password</div>
+      )}
       <form className={styles.container}>
         <input
           ref={idRef}

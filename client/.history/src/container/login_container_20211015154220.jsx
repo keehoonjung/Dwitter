@@ -14,7 +14,7 @@ const LoginContainer = (props) => {
   const onCreateId = (id, password, name, email, url) => {
     dispatch(createId(id, password, name, email, url));
   };
-  console.log(error);
+  console.log(typeof error);
   useEffect(() => {
     if (login) {
       history.push({

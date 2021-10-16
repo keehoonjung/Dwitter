@@ -41,7 +41,9 @@ const Login = ({ onLoginId, onCreateId, error }: LoginStatus) => {
   };
   return (
     <>
-      {error && <div className={styles.error}>{error}</div>}
+      {error && (
+        <div className={styles.error}>Error: Invalid user or password</div>
+      )}
       <form className={styles.container}>
         <input
           ref={idRef}

@@ -30,6 +30,7 @@ export const loginId = (id, password) => async (dispatch) => {
       });
     }
   } catch (e) {
+    console.log(e);
     dispatch({
       type: LOGIN_ID_ERROR,
       payload: "Error: Invalid user or password",
@@ -60,7 +61,7 @@ export const createId =
       console.log(payload);
       dipatch({ type: CREATE_ID_SUCCESS, payload });
     } catch (e) {
-      dipatch({ type: CREATE_ID_ERROR, payload: "Error: already exists ID" });
+      dipatch({ type: CREATE_ID_ERROR, payload: e });
     }
   };
 

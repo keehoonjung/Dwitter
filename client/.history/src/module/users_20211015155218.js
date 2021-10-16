@@ -60,7 +60,7 @@ export const createId =
       console.log(payload);
       dipatch({ type: CREATE_ID_SUCCESS, payload });
     } catch (e) {
-      dipatch({ type: CREATE_ID_ERROR, payload: "Error: already exists ID" });
+      dipatch({ type: CREATE_ID_ERROR, payload: "Error: already exists Id" });
     }
   };
 

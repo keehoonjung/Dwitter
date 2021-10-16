@@ -19,21 +19,12 @@ export const loginId = (id, password) => async (dispatch) => {
     if (user) {
       user.password === password
         ? dispatch({ type: LOGIN_ID_SUCCESS, payload: user })
-        : dispatch({
-            type: LOGIN_ID_ERROR,
-            payload: "Error: Invalid user or password fail",
-          });
+        : dispatch({ type: LOGIN_ID_ERROR, payload: "login fail" });
     } else {
-      dispatch({
-        type: LOGIN_ID_ERROR,
-        payload: "Error: Invalid user or password",
-      });
+      dispatch({ type: LOGIN_ID_ERROR, payload: "login fail" });
     }
   } catch (e) {
-    dispatch({
-      type: LOGIN_ID_ERROR,
-      payload: "Error: Invalid user or password",
-    });
+    dispatch({ type: LOGIN_ID_ERROR, payload: e });
   }
 };
 
@@ -60,7 +51,7 @@ export const createId =
       console.log(payload);
       dipatch({ type: CREATE_ID_SUCCESS, payload });
     } catch (e) {
-      dipatch({ type: CREATE_ID_ERROR, payload: "Error: already exists ID" });
+      dipatch({ type: CREATE_ID_ERROR, payload: e });
     }
   };
 
@@ -139,14 +130,7 @@ export default function users(state = initialState, action) {
           error: null,
         },
       };
-    case CREATE_ID_ERROR:
-      return {
-        user: {
-          ...state.user,
-          loading: false,
-          error: action.payload,
-        },
-      };
+
     default:
       return state;
   }

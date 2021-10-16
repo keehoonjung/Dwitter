@@ -1,7 +1,7 @@
-const baseUrl = "http://localhost:8080/users";
+const url = "http://localhost:8080/users";
 
 export const getUser = async (id) => {
-  const user = await fetch(`${baseUrl}/${id}`) //
+  const user = await fetch(`${url}/${id}`) //
     .then((res) => res.json())
     .then((res) => res);
 
@@ -9,7 +9,7 @@ export const getUser = async (id) => {
 };
 
 export const createUser = async ({ username, password, name, email, url }) => {
-  const user = await fetch(baseUrl, {
+  await fetch(url, {
     method: "post",
     body: JSON.stringify({
       username,
@@ -21,6 +21,4 @@ export const createUser = async ({ username, password, name, email, url }) => {
   }) //
     .then((res) => res.json())
     .then((res) => res);
-
-  return user;
 };

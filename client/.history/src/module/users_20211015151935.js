@@ -19,21 +19,12 @@ export const loginId = (id, password) => async (dispatch) => {
     if (user) {
       user.password === password
         ? dispatch({ type: LOGIN_ID_SUCCESS, payload: user })
-        : dispatch({
-            type: LOGIN_ID_ERROR,
-            payload: "Error: Invalid user or password fail",
-          });
+        : dispatch({ type: LOGIN_ID_ERROR, payload: "login fail" });
     } else {
-      dispatch({
-        type: LOGIN_ID_ERROR,
-        payload: "Error: Invalid user or password",
-      });
+      dispatch({ type: LOGIN_ID_ERROR, payload: "login fail" });
     }
   } catch (e) {
-    dispatch({
-      type: LOGIN_ID_ERROR,
-      payload: "Error: Invalid user or password",
-    });
+    dispatch({ type: LOGIN_ID_ERROR, payload: e });
   }
 };
 
@@ -46,23 +37,12 @@ export const logoutId = () => (dipatch) => {
   }
 };
 
-export const createId =
-  (username, password, name, email, url) => async (dipatch) => {
-    dipatch({ type: CREATE_ID });
-    try {
-      const payload = await createUser({
-        username,
-        password,
-        name,
-        email,
-        url,
-      });
-      console.log(payload);
-      dipatch({ type: CREATE_ID_SUCCESS, payload });
-    } catch (e) {
-      dipatch({ type: CREATE_ID_ERROR, payload: "Error: already exists ID" });
+export const createId = (username,password,name,email,url)=> async dipatch => {
+    dipatch({type: CREATE_ID})
+    try{
+        const user = await createUser({username,password,name,email,url})
     }
-  };
+}
 
 const initialState = {
   user: {
@@ -116,30 +96,6 @@ export default function users(state = initialState, action) {
         },
       };
     case LOGOUT_ID_ERROR:
-      return {
-        user: {
-          ...state.user,
-          loading: false,
-          error: action.payload,
-        },
-      };
-    case CREATE_ID:
-      return {
-        user: {
-          ...state.user,
-          loading: true,
-        },
-      };
-    case CREATE_ID_SUCCESS:
-      return {
-        user: {
-          loading: false,
-          login: true,
-          data: action.payload,
-          error: null,
-        },
-      };
-    case CREATE_ID_ERROR:
       return {
         user: {
           ...state.user,

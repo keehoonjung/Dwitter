@@ -4,7 +4,7 @@ import styles from "./login.module.css";
 type LoginStatus = {
   onLoginId(id: string, password: string): void;
   onCreateId(
-    id: string,
+    username: string,
     password: string,
     name: string,
     email: string,
@@ -13,15 +13,11 @@ type LoginStatus = {
   error: ErrorEvent;
 };
 
-const Login = ({ onLoginId, onCreateId, error }: LoginStatus) => {
+const Login = ({ onLoginId, error }: LoginStatus) => {
   const [onCreate, setOnCreate] = useState(false);
   const idRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const checkboxRef = useRef<HTMLInputElement>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const urlRef = useRef<HTMLInputElement>(null);
-
   const onChange = () => {
     setOnCreate(checkboxRef.current!.checked);
   };
@@ -29,19 +25,13 @@ const Login = ({ onLoginId, onCreateId, error }: LoginStatus) => {
     e.preventDefault();
     const id = idRef.current!.value;
     const password = passwordRef.current!.value;
-    if (onCreate) {
-      const name = nameRef.current!.value;
-      const email = emailRef.current!.value;
-      const url = urlRef.current!.value;
-
-      onCreateId(id, password, name, email, url);
-    } else {
-      onLoginId(id, password);
-    }
+    onLoginId(id, password);
   };
   return (
     <>
-      {error && <div className={styles.error}>{error}</div>}
+      {error && (
+        <div className={styles.error}>Error: Invalid user or password</div>
+      )}
       <form className={styles.container}>
         <input
           ref={idRef}
@@ -57,20 +47,9 @@ const Login = ({ onLoginId, onCreateId, error }: LoginStatus) => {
         />
         {onCreate && (
           <>
+            <input className={styles.input} type="text" placeholder="Name" />
+            <input className={styles.input} type="text" placeholder="Email" />
             <input
-              ref={nameRef}
-              className={styles.input}
-              type="text"
-              placeholder="Name"
-            />
-            <input
-              ref={emailRef}
-              className={styles.input}
-              type="text"
-              placeholder="Email"
-            />
-            <input
-              ref={urlRef}
               className={styles.input}
               type="text"
               placeholder="Profile Image URL"
