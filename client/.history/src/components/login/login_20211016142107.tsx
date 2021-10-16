@@ -52,8 +52,9 @@ const Login = ({ onLoginId, onCreateId, error }: LoginStatus) => {
         <input
           ref={passwordRef}
           className={styles.input}
-          type="password"
+          type="text"
           placeholder="Password"
+          minLength="5
         />
         {onCreate && (
           <>
@@ -66,7 +67,7 @@ const Login = ({ onLoginId, onCreateId, error }: LoginStatus) => {
             <input
               ref={emailRef}
               className={styles.input}
-              type="email"
+              type="text"
               placeholder="Email"
             />
             <input

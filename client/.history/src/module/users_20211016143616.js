@@ -21,7 +21,8 @@ export const loginId = (id, password) => async (dispatch) => {
         type: LOGIN_ID_ERROR,
         payload: "Error: Invalid user or password fail",
       });
-    } else {
+    }
+    if (user) {
       user.password === password
         ? dispatch({ type: LOGIN_ID_SUCCESS, payload: user })
         : dispatch({
@@ -56,14 +57,6 @@ export const createId =
       });
     }
     try {
-      const user = await getUser(username);
-      return dipatch({
-        type: CREATE_ID_ERROR,
-        payload: `Error: ${user.username} already exists`,
-      });
-    } catch (e) {}
-
-    try {
       const payload = await createUser({
         username,
         password,
@@ -75,7 +68,17 @@ export const createId =
     } catch (e) {
       dipatch({
         type: CREATE_ID_ERROR,
-        payload: e,
+        payload: "Error: already exists ID",
+      });
+    }
+  };
+
+const checkUserInformation =
+  (username, password, name, email, url) => (dipatch) => {
+    if (password.length < 5) {
+      dipatch({
+        type: CREATE_ID_ERROR,
+        payload: "Error: password should be at least 5 characters",
       });
     }
   };

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { deleteTweet, updateTweet } from "../../module/tweets";
 import { TweetType } from "../../service/store";
 import UpdateTweet from "../update_tweet/update_tweet";
 import styles from "./tweet.module.css";
@@ -11,14 +13,16 @@ type TweetPros = {
   onUpdateTweet(text: string): void;
 };
 
-const Tweet = ({ item, data, onDeleteTweet, onUpdateTweet }: TweetPros) => {
+const Tweet = ({ item }: TweetPros) => {
   const [updatePaeneol, setUpdatePaeneol] = useState(false);
+  const dispatch = useDispatch();
   const onClick = () => {
-    onDeleteTweet();
+    dispatch(deleteTweet(item.id));
   };
 
   const onUpdate = (text: string) => {
-    onUpdateTweet(text);
+    const id = item.id;
+    dispatch(updateTweet({ id, text }));
   };
 
   const onUpdatePaeneol = () => {
@@ -52,16 +56,14 @@ const Tweet = ({ item, data, onDeleteTweet, onUpdateTweet }: TweetPros) => {
           />
         )}
       </div>
-      {item.username === data && (
-        <div className={styles.button_container}>
-          <button className={styles.deleteBtn} onClick={onClick}>
-            <i className="fas fa-times"></i>
-          </button>
-          <button className={styles.updateBtn} onClick={onUpdatePaeneol}>
-            <i className="fas fa-pencil-alt"></i>
-          </button>
-        </div>
-      )}
+      <div className={styles.button_container}>
+        <button className={styles.deleteBtn} onClick={onClick}>
+          <i className="fas fa-times"></i>
+        </button>
+        <button className={styles.updateBtn} onClick={onUpdatePaeneol}>
+          <i className="fas fa-pencil-alt"></i>
+        </button>
+      </div>
     </li>
   );
 };

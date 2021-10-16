@@ -9,8 +9,8 @@ let users = {
     email: "kuku6471@naver.com",
     url: "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
   },
-  SONG: {
-    username: "SONG",
+  song: {
+    username: "song",
     password: "12345",
     name: "songsong",
     email: "kuku6471@naver.com",
@@ -106,8 +106,6 @@ app.listen(8080);
 app.get("/users/:id", (req, res) => {
   const id = req.params.id;
   const user = users[id];
-  console.log(id);
-  console.log(user);
   res.writeHead(200, { "Contet-Type": "application/json" });
   res.end(JSON.stringify(user));
 });

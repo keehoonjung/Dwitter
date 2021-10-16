@@ -9,7 +9,7 @@ let users = {
     email: "kuku6471@naver.com",
     url: "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
   },
-  SONG: {
+  song: {
     username: "SONG",
     password: "12345",
     name: "songsong",

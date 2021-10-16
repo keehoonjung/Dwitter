@@ -68,6 +68,7 @@ const Login = ({ onLoginId, onCreateId, error }: LoginStatus) => {
               className={styles.input}
               type="email"
               placeholder="Email"
+              pattern=".+@globex\.com"
             />
             <input
               ref={urlRef}

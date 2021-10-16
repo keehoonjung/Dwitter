@@ -52,16 +52,14 @@ const Tweet = ({ item, data, onDeleteTweet, onUpdateTweet }: TweetPros) => {
           />
         )}
       </div>
-      {item.username === data && (
-        <div className={styles.button_container}>
-          <button className={styles.deleteBtn} onClick={onClick}>
-            <i className="fas fa-times"></i>
-          </button>
-          <button className={styles.updateBtn} onClick={onUpdatePaeneol}>
-            <i className="fas fa-pencil-alt"></i>
-          </button>
-        </div>
-      )}
+      <div className={styles.button_container}>
+        <button className={styles.deleteBtn} onClick={onClick}>
+          <i className="fas fa-times"></i>
+        </button>
+        <button className={styles.updateBtn} onClick={onUpdatePaeneol}>
+          <i className="fas fa-pencil-alt"></i>
+        </button>
+      </div>
     </li>
   );
 };

@@ -61,8 +61,9 @@ export const createId =
         type: CREATE_ID_ERROR,
         payload: `Error: ${user.username} already exists`,
       });
-    } catch (e) {}
-
+    } catch (e) {
+      return;
+    }
     try {
       const payload = await createUser({
         username,

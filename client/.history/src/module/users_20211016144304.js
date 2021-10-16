@@ -32,7 +32,7 @@ export const loginId = (id, password) => async (dispatch) => {
   } catch (e) {
     dispatch({
       type: LOGIN_ID_ERROR,
-      payload: e.toString(),
+      payload: e,
     });
   }
 };
@@ -56,14 +56,6 @@ export const createId =
       });
     }
     try {
-      const user = await getUser(username);
-      return dipatch({
-        type: CREATE_ID_ERROR,
-        payload: `Error: ${user.username} already exists`,
-      });
-    } catch (e) {}
-
-    try {
       const payload = await createUser({
         username,
         password,
@@ -75,9 +67,20 @@ export const createId =
     } catch (e) {
       dipatch({
         type: CREATE_ID_ERROR,
-        payload: e,
+        payload: "Error: already exists ID",
       });
     }
+  };
+
+const checkUserInformation =
+  (username, password, name, email, url) => async (dipatch) => {
+    if (password.length < 5) {
+      return dipatch({
+        type: CREATE_ID_ERROR,
+        payload: "Error: password should be at least 5 characters",
+      });
+    }
+    const user = getUser(username);
   };
 
 const initialState = {

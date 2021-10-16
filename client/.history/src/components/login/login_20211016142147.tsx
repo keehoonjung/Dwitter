@@ -66,7 +66,7 @@ const Login = ({ onLoginId, onCreateId, error }: LoginStatus) => {
             <input
               ref={emailRef}
               className={styles.input}
-              type="email"
+              type="text"
               placeholder="Email"
             />
             <input
