@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon app",
-    "test": "echo \"Error: no test specified\" $$ exit 1"
+    "start": "nodemon src/index.js",
+    "test": "nodemon app"
   },
   "keywords": [],
   "author": "",
