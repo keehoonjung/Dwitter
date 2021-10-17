@@ -13,15 +13,10 @@ export const getTweets = async (username = "") => {
 };
 
 export const getTweetsById = async (id) => {
-  const response = await fetch(`${url}/${id}`, {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  });
-  const data = await response.json();
-  if (response.status !== 200) {
-    throw new Error(data.message);
-  }
-  return data;
+  const tweet = await fetch(`${url}/${id}`) //
+    .then((res) => res.json())
+    .then((res) => res);
+  return tweet;
 };
 
 export const postTweet = async ({ text, name, username }) => {
@@ -39,26 +34,19 @@ export const postTweet = async ({ text, name, username }) => {
 };
 
 export const deleteTweet = async (id) => {
-  const response = await fetch(`${url}/${id}`, {
-    method: "DELETE",
-    headers: { "Content-Type": "application/json" },
-  });
-  if (response.status !== 204) {
-    throw new Error("not deleted");
-  }
+  await fetch(`${url}/${id}`, {
+    method: "delete",
+  }); //
 };
 
 export const updateTweet = async ({ id, text }) => {
-  const response = await fetch(`${url}/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
+  const tweet = await fetch(`${url}/${id}`, {
+    method: "put",
     body: JSON.stringify({
       text,
     }),
-  });
-  const data = response.json();
-  if (response.status !== 200) {
-    throw new Error(data.message);
-  }
-  return data;
+  }) //
+    .then((res) => res.json())
+    .then((res) => res);
+  return tweet;
 };

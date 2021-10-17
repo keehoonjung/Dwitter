@@ -50,7 +50,6 @@ router.get("/:id", (req, res, next) => {
 
 router.post("/", (req, res, next) => {
   const { text, name, username } = req.body;
-  console.log(req.body);
   const tweet = {
     id: Date.now().toString(),
     text,
@@ -59,7 +58,6 @@ router.post("/", (req, res, next) => {
     username,
     url: "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
   };
-  console.log(tweet);
   tweets = [tweet, ...tweets];
   res.status(201).json(tweet);
 });

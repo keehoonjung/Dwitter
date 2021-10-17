@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Tweets from "../components/tweets/tweets";
-import { getTweets } from "../module/tweets";
+import { getTweet, getTweets } from "../module/tweets";
 
 const UserTweetsContainer = ({ id }) => {
   const { loading, data, error } = useSelector((state) => state.tweets.posts);

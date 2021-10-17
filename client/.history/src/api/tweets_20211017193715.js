@@ -49,16 +49,13 @@ export const deleteTweet = async (id) => {
 };
 
 export const updateTweet = async ({ id, text }) => {
-  const response = await fetch(`${url}/${id}`, {
+  const tweet = await fetch(`${url}/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       text,
     }),
-  });
-  const data = response.json();
-  if (response.status !== 200) {
-    throw new Error(data.message);
-  }
-  return data;
+  }) //
+    .then((res) => res.json())
+    .then((res) => res);
+  return tweet;
 };

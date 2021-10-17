@@ -10,7 +10,13 @@ const PostTweet = ({ onPostTweet, user }) => {
   const onSubmit = (event) => {
     event.preventDefault();
     const text = inputRef.current.value;
-    onPostTweet(text, user.name, user.username);
+    console.log(text, user.name, user.username);
+    const tweet = {
+      text,
+      name: user.name,
+      username: user.username,
+    };
+    onPostTweet(tweet.text, tweet.name, tweet.username);
     inputRef.current.value = "";
   };
 

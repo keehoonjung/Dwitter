@@ -50,7 +50,6 @@ router.get("/:id", (req, res, next) => {
 
 router.post("/", (req, res, next) => {
   const { text, name, username } = req.body;
-  console.log(req.body);
   const tweet = {
     id: Date.now().toString(),
     text,
