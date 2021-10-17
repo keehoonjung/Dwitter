@@ -1,3 +1,5 @@
+const url = "http://localhost:8080/tweets";
+
 export default class TweetService {
   constructor(http) {
     this.http = http;

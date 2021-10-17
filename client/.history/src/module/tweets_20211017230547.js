@@ -1,3 +1,4 @@
+import * as tweetService from "../api/tweets";
 import {
   tweetsPromiseThunk,
   tweetPromiseThunkById,
@@ -7,7 +8,6 @@ import {
   handleAsyncUpdateTweetActions,
   tweetsReducerUtils,
 } from "../util/tweets_async_utils";
-
 import HttpClient from "../network/http";
 import TweetService from "../api/tweets";
 

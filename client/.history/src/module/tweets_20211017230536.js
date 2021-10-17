@@ -1,3 +1,4 @@
+import * as tweetsAPI from "../api/tweets";
 import {
   tweetsPromiseThunk,
   tweetPromiseThunkById,
@@ -7,7 +8,6 @@ import {
   handleAsyncUpdateTweetActions,
   tweetsReducerUtils,
 } from "../util/tweets_async_utils";
-
 import HttpClient from "../network/http";
 import TweetService from "../api/tweets";
 
@@ -35,19 +35,19 @@ const UPDATE_TWEET = "UPDATE_TWEET";
 const UPDATE_TWEET_SUCCESS = "UPDATE_TWEET_SUCCESS";
 const UPDATE_TWEET_ERROR = "UPDATE_TWEET_ERROR";
 
-export const getTweets = tweetsPromiseThunk(GET_TWEETS, tweetService.getTweets);
+export const getTweets = tweetsPromiseThunk(GET_TWEETS, tweetsAPI.getTweets);
 export const getTweet = tweetPromiseThunkById(
   GET_TWEET,
-  tweetService.getTweetsById
+  tweetsAPI.getTweetsById
 );
-export const postTweet = tweetsPromiseThunk(POST_TWEET, tweetService.postTweet);
+export const postTweet = tweetsPromiseThunk(POST_TWEET, tweetsAPI.postTweet);
 export const deleteTweet = tweetPromiseThunkById(
   DELETE_TWEET,
-  tweetService.deleteTweet
+  tweetsAPI.deleteTweet
 );
 export const updateTweet = tweetPromiseThunkById(
   UPDATE_TWEET,
-  tweetService.updateTweet,
+  tweetsAPI.updateTweet,
   (param) => param.id
 );
 
