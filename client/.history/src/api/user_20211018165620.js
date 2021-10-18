@@ -10,8 +10,8 @@ export default class UserService {
   };
 
   createUser = async ({ username, password, name, email, url }) => {
-    return await this.http.fetch(`/users`, {
-      method: "POST",
+    const user = await fetch(baseUrl, {
+      method: "post",
       body: JSON.stringify({
         username,
         password,
@@ -19,6 +19,12 @@ export default class UserService {
         email,
         url,
       }),
-    });
+    }) //
+      .then((res) => res.json())
+      .then((res) => res);
+
+    return user;
   };
 }
+
+const baseUrl = "http://localhost:8080/users";

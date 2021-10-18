@@ -10,6 +10,7 @@ export default class UserService {
   };
 
   createUser = async ({ username, password, name, email, url }) => {
+    console.log(username);
     return await this.http.fetch(`/users`, {
       method: "POST",
       body: JSON.stringify({

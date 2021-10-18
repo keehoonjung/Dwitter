@@ -1,3 +1,4 @@
+import { createUser, getUser } from "../api/user";
 import {
   CreateIdPromiseThunk,
   createLoginPromiseThunk,
@@ -8,8 +9,7 @@ import HttpClient from "../network/http";
 import UserService from "../api/user";
 
 const baseUrl = "http://localhost:8080";
-const httpClient = new HttpClient(baseUrl);
-const userService = new UserService(httpClient);
+const httpClient = new HttpClient();
 
 const LOGIN_ID = "LOGIN_ID";
 const LOGIN_ID_SUCCESS = "LOGIN_ID_SUCCESS";
@@ -23,13 +23,13 @@ const CREATE_ID = "CREATE_ID";
 const CREATE_ID_SUCCESS = "CREATE_ID_SUCCESS";
 const CREATE_ID_ERROR = "CREATE_ID_ERROR";
 
-export const loginId = createLoginPromiseThunk(LOGIN_ID, userService.getUser);
+export const loginId = createLoginPromiseThunk(LOGIN_ID, getUser);
 
 export const logoutId = () => (dipatch) => {
   dipatch({ type: LOGOUT_ID_SUCCESS });
 };
 
-export const createId = CreateIdPromiseThunk(CREATE_ID, userService.createUser);
+export const createId = CreateIdPromiseThunk(CREATE_ID, createUser);
 
 const initialState = {
   user: userReducerUtils.initial,

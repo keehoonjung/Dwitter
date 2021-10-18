@@ -29,7 +29,7 @@ export const logoutId = () => (dipatch) => {
   dipatch({ type: LOGOUT_ID_SUCCESS });
 };
 
-export const createId = CreateIdPromiseThunk(CREATE_ID, userService.createUser);
+export const createId = CreateIdPromiseThunk(CREATE_ID, createUser);
 
 const initialState = {
   user: userReducerUtils.initial,

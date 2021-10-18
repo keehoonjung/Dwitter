@@ -22,3 +22,5 @@ export default class UserService {
     });
   };
 }
+
+const baseUrl = "http://localhost:8080/users";
