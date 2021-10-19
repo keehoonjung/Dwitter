@@ -1,0 +1,66 @@
+import * as userRepository from "../data/auth.js";
+
+let tweets = [
+  {
+    id: "12345",
+    text: "Hello",
+    createdAt: Date.now(),
+    userId: "2",
+  },
+  {
+    id: "34144",
+    text: "Hello",
+    createdAt: Date.now(),
+    userId: "1",
+  },
+  {
+    id: "12333345",
+    text: "Hello2",
+    createdAt: Date.now(),
+    userId: "1",
+  },
+];
+
+export async function getAll() {
+  return Promise.all(
+    tweets.map(async (tweet) => {
+      const { username, name, url } = await userRepository.findById(
+        tweet.userId
+      );
+      return { ...tweet, username, name, url };
+    })
+  );
+}
+
+export async function getAllByUsername(username) {
+  return getAll().then(tweets => tweets.filter((tweet) => tweet.username === username);)
+}
+
+export async function getById(id) {
+  return tweets.find((tweet) => tweet.id === id);
+}
+
+export async function create(text, name, username) {
+  const tweet = {
+    id: Date.now().toString(),
+    text,
+    createdAt: Date.now(),
+    name,
+    username,
+    url: "https://res.cloudinary.com/dpvhkp8oq/image/upload/v1632646994/Motion/moxvxyhmceuumjye3lth.jpg",
+  };
+  tweets = [tweet, ...tweets];
+  return tweet;
+}
+
+export async function update(id, text) {
+  const tweet = tweets.find((tweet) => tweet.id === id);
+  if (tweet) {
+    tweet.text = text;
+  }
+  return tweet;
+}
+
+export async function remove(id) {
+  tweets = tweets.filter((tweet) => tweet.id !== id);
+}
