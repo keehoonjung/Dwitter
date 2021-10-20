@@ -27,7 +27,6 @@ export const tweetPromiseThunkById = (
       const payload = await promiseCreator(param);
       dispatch({ type: SUCCESS, payload, meta: id });
     } catch (e) {
-      console.log(e);
       dispatch({ type: ERROR, error: true, payload: e, meta: id });
     }
   };
@@ -100,21 +99,22 @@ const postAsyncActionCallback = (key, state, action) => {
   };
 };
 
-const deleteAsyncActionCallback = (key, state, action) => ({
-  ...state,
-  posts: {
-    loading: false,
-    data: state.posts.data
-      ? state.posts.data.filter((tweet) => tweet.id !== action.meta)
-      : null,
-    error: null,
-  },
-});
+const deleteAsyncActionCallback = (key, state, action) => {
+  return {
+    ...state,
+    posts: {
+      ...state.posts,
+      data: state.posts.data
+        ? state.posts.data.filter((tweet) => tweet.id !== action.meta)
+        : null,
+    },
+  };
+};
 
 const updateAsyncActionCallback = (key, state, action) => ({
   ...state,
   posts: {
-    loading: false,
+    ...state.posts,
     data: state.posts.data
       ? state.posts.data.map((tweet) => {
           if (tweet.id !== action.meta) {
@@ -123,7 +123,6 @@ const updateAsyncActionCallback = (key, state, action) => ({
           return action.payload;
         })
       : null,
-    error: null,
   },
 });
 

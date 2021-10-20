@@ -15,7 +15,6 @@ export default class HttpClient {
     if (res.status === 204) {
       return;
     }
-
     let data;
     try {
       data = res.json();

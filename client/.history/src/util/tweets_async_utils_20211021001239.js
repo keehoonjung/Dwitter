@@ -22,6 +22,8 @@ export const tweetPromiseThunkById = (
 
   return (param) => async (dispatch) => {
     const id = idSelector(param);
+    console.log(typeof id);
+    console.log(id);
     dispatch({ type, meta: id });
     try {
       const payload = await promiseCreator(param);
@@ -63,6 +65,7 @@ const handleAsyncActions = (callback) => {
       switch (action.type) {
         case type:
           const prevState = state[key] && state[key].data;
+          console.log(prevState);
           return {
             ...state,
             [key]: prevState
@@ -100,16 +103,19 @@ const postAsyncActionCallback = (key, state, action) => {
   };
 };
 
-const deleteAsyncActionCallback = (key, state, action) => ({
-  ...state,
-  posts: {
-    loading: false,
-    data: state.posts.data
-      ? state.posts.data.filter((tweet) => tweet.id !== action.meta)
-      : null,
-    error: null,
-  },
-});
+const deleteAsyncActionCallback = (key, state, action) => {
+  console.log(state);
+  return {
+    ...state,
+    posts: {
+      loading: false,
+      data: state.posts.data
+        ? state.posts.data.filter((tweet) => tweet.id !== action.meta)
+        : null,
+      error: null,
+    },
+  };
+};
 
 const updateAsyncActionCallback = (key, state, action) => ({
   ...state,

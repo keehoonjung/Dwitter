@@ -26,7 +26,7 @@ export default class TweetService {
   };
 
   deleteTweet = async (id) => {
-    await this.http.fetch(`/tweets/${id}`, {
+    return await this.http.fetch(`/tweets/${id}`, {
       method: "DELETE",
       headers: this.getHeaders(),
     });

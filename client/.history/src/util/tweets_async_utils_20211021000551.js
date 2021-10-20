@@ -63,6 +63,7 @@ const handleAsyncActions = (callback) => {
       switch (action.type) {
         case type:
           const prevState = state[key] && state[key].data;
+          console.log(prevState);
           return {
             ...state,
             [key]: prevState
@@ -100,21 +101,23 @@ const postAsyncActionCallback = (key, state, action) => {
   };
 };
 
-const deleteAsyncActionCallback = (key, state, action) => ({
-  ...state,
-  posts: {
-    loading: false,
-    data: state.posts.data
-      ? state.posts.data.filter((tweet) => tweet.id !== action.meta)
-      : null,
-    error: null,
-  },
-});
+const deleteAsyncActionCallback = (key, state, action) => {
+  console.log("hello");
+  return {
+    ...state,
+    posts: {
+      ...state.posts,
+      data: state.posts.data
+        ? state.posts.data.filter((tweet) => tweet.id !== action.meta)
+        : null,
+    },
+  };
+};
 
 const updateAsyncActionCallback = (key, state, action) => ({
   ...state,
   posts: {
-    loading: false,
+    ...state.posts,
     data: state.posts.data
       ? state.posts.data.map((tweet) => {
           if (tweet.id !== action.meta) {
@@ -123,7 +126,6 @@ const updateAsyncActionCallback = (key, state, action) => ({
           return action.payload;
         })
       : null,
-    error: null,
   },
 });
 

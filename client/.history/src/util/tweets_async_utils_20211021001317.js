@@ -100,16 +100,19 @@ const postAsyncActionCallback = (key, state, action) => {
   };
 };
 
-const deleteAsyncActionCallback = (key, state, action) => ({
-  ...state,
-  posts: {
-    loading: false,
-    data: state.posts.data
-      ? state.posts.data.filter((tweet) => tweet.id !== action.meta)
-      : null,
-    error: null,
-  },
-});
+const deleteAsyncActionCallback = (key, state, action) => {
+  console.log(state);
+  return {
+    ...state,
+    posts: {
+      loading: false,
+      data: state.posts.data
+        ? state.posts.data.filter((tweet) => tweet.id !== action.meta)
+        : null,
+      error: null,
+    },
+  };
+};
 
 const updateAsyncActionCallback = (key, state, action) => ({
   ...state,
