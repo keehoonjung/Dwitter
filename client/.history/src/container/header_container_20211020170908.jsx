@@ -1,0 +1,22 @@
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Header from "../components/header/header";
+import { logoutId, me } from "../module/user";
+
+const HeaderContainer = (props) => {
+  const { data } = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  const onLogoutId = () => {
+    dispatch(logoutId());
+  };
+  const Me = async () => {
+    dispatch(me());
+    console.log(data);
+  };
+
+  Me();
+
+  return <Header data={data} onLogoutId={onLogoutId} />;
+};
+
+export default HeaderContainer;

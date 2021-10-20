@@ -1,0 +1,38 @@
+export default class UserService {
+  constructor(http, tokenStorage) {
+    this.http = http;
+    this.tokenStorage = tokenStorage;
+  }
+  signUp = async ({ username, password, name, email, url }) => {
+    const data = await this.http.fetch(`/auth/signup`, {
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        password,
+        name,
+        email,
+        url,
+      }),
+    });
+    this.tokenStorage.saveToken(data.token);
+    return data;
+  };
+
+  login = async ({ username, password }) => {
+    const data = await this.http.fetch(`/auth/login`, {
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+    this.tokenStorage.saveToken(data.token);
+    return data;
+  };
+
+  me = async () => {
+    return await this.http.fetch("/auth/me", {
+      method: "GET",
+    });
+  };
+}
