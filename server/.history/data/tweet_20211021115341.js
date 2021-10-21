@@ -47,7 +47,7 @@ export async function getById(id) {
   return { ...found, username, name, url };
 }
 
-export async function create(text) {
+export async function create(text, userId) {
   const tweet = {
     id: Date.now().toString(),
     text,
@@ -60,12 +60,15 @@ export async function create(text) {
 
 export async function update(id, text) {
   const tweet = tweets.find((tweet) => tweet.id === id);
-  if (tweet) {
+  if (tweet && tweet.userId === userId) {
     tweet.text = text;
   }
   return getById(tweet.id);
 }
 
-export async function remove(id) {
-  tweets = tweets.filter((tweet) => tweet.id !== id);
+export async function remove(id, userId) {
+  const tweet = tweets.find((tweet) => tweet.id === id);
+  if (tweet.userId === userId) {
+    tweets = tweets.filter((tweet) => tweet.id !== id);
+  }
 }
