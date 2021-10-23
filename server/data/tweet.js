@@ -47,7 +47,7 @@ export async function getById(id) {
   return { ...found, username, name, url };
 }
 
-export async function create(text) {
+export async function create(text, userId) {
   const tweet = {
     id: Date.now().toString(),
     text,

@@ -22,7 +22,8 @@ export async function getTweet(req, res) {
 
 export async function createTweet(req, res) {
   const { text } = req.body;
-  const tweet = await tweetRepository.create(text, req.userId);
+  const userId = req.userId;
+  const tweet = await tweetRepository.create(text, userId);
   res.status(201).json(tweet);
   getSocketIO().emit("tweets", tweet);
 }
