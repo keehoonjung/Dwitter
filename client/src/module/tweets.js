@@ -6,16 +6,23 @@ import {
   handleAsyncPostTweetActions,
   handleAsyncUpdateTweetActions,
   tweetsReducerUtils,
+  createTweetPromiseThunk,
 } from "../util/tweets_async_utils";
 
 import HttpClient from "../network/http";
 import TweetService from "../api/tweets";
 import TokenStorage from "../db/token";
+import Socket from "../connection/socket";
 
 const baseUrl = "http://localhost:8080";
 const httpClient = new HttpClient(baseUrl);
 const tokenStorage = new TokenStorage();
-const tweetService = new TweetService(httpClient, tokenStorage);
+const socketClient = new Socket(baseUrl, () => tokenStorage.getToken());
+export const tweetService = new TweetService(
+  httpClient,
+  tokenStorage,
+  socketClient
+);
 
 const GET_TWEETS = "GET_TWEETS";
 const GET_TWEETS_SUCCESS = "GET_TWEETS_SUCCESS";
@@ -37,12 +44,17 @@ const UPDATE_TWEET = "UPDATE_TWEET";
 const UPDATE_TWEET_SUCCESS = "UPDATE_TWEET_SUCCESS";
 const UPDATE_TWEET_ERROR = "UPDATE_TWEET_ERROR";
 
+const ONSYNC_TWEETS = "ONSYNC_TWEETS";
+
 export const getTweets = tweetsPromiseThunk(GET_TWEETS, tweetService.getTweets);
 export const getTweet = tweetPromiseThunkById(
   GET_TWEET,
   tweetService.getTweetsById
 );
-export const postTweet = tweetsPromiseThunk(POST_TWEET, tweetService.postTweet);
+export const postTweet = createTweetPromiseThunk(
+  POST_TWEET,
+  tweetService.postTweet
+);
 export const deleteTweet = tweetPromiseThunkById(
   DELETE_TWEET,
   tweetService.deleteTweet
@@ -52,6 +64,11 @@ export const updateTweet = tweetPromiseThunkById(
   tweetService.updateTweet,
   (param) => param.id
 );
+export const onSyncTweets = () => (dispatch) => {
+  tweetService.onSync((tweet) => {
+    dispatch({ type: ONSYNC_TWEETS, payload: tweet });
+  });
+};
 
 const initialState = {
   posts: tweetsReducerUtils.initial(),
@@ -86,6 +103,16 @@ export default function tweets(state = initialState, action) {
         state,
         action
       );
+    case ONSYNC_TWEETS:
+      const result = action.payload;
+      return {
+        ...state,
+        posts: {
+          loading: false,
+          data: result ? [result, ...state.posts.data] : state.posts.data,
+          error: null,
+        },
+      };
     default:
       return state;
   }

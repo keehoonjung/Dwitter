@@ -6,8 +6,8 @@ import { postTweet } from "../module/tweets";
 const PostTweetContainer = (props) => {
   const { data } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const onPostTweet = (text, name, username) => {
-    dispatch(postTweet({ text, name, username }));
+  const onPostTweet = (text) => {
+    dispatch(postTweet({ text }));
   };
 
   return <PostTweet onPostTweet={onPostTweet} user={data} />;

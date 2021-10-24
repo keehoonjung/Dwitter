@@ -4,7 +4,7 @@ import Header from "../components/header/header";
 import { logoutId, me } from "../module/user";
 
 const HeaderContainer = (props) => {
-  const { data, token } = useSelector((state) => state.user);
+  const { data } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const onLogoutId = () => {
     dispatch(logoutId());

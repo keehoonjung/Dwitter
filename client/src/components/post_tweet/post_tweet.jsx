@@ -6,7 +6,7 @@ const PostTweet = ({ onPostTweet, user }) => {
   const onSubmit = (event) => {
     event.preventDefault();
     const text = inputRef.current.value;
-    onPostTweet(text, user.name, user.username);
+    onPostTweet(text);
     inputRef.current.value = "";
   };
 

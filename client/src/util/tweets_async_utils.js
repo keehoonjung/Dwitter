@@ -12,6 +12,20 @@ export const tweetsPromiseThunk = (type, promiseCreator) => {
   };
 };
 
+export const createTweetPromiseThunk = (type, promiseCreator) => {
+  const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
+
+  return (param) => async (dispatch) => {
+    dispatch({ type });
+    try {
+      await promiseCreator(param);
+      dispatch({ type: SUCCESS });
+    } catch (e) {
+      dispatch({ type: ERROR, payload: e, error: true });
+    }
+  };
+};
+
 const defaultIdSelector = (param) => param;
 export const tweetPromiseThunkById = (
   type,
@@ -89,12 +103,11 @@ const getAsyncActionCallback = (key, state, action) => ({
 });
 
 const postAsyncActionCallback = (key, state, action) => {
-  const result = action.payload;
   return {
     ...state,
     [key]: {
       loading: false,
-      data: result ? [result, ...state[key].data] : state.posts.data,
+      data: state.posts.data,
       error: null,
     },
   };

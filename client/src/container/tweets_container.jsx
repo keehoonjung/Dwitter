@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Tweets from "../components/tweets/tweets";
 import TokenStorage from "../db/token";
-import { getTweets } from "../module/tweets";
+import { getTweets, onSyncTweets, tweetService } from "../module/tweets";
 const tokenStorage = new TokenStorage();
 const initialToken = tokenStorage.getToken();
 
@@ -15,6 +15,10 @@ const TweetsContainer = (props) => {
 
   useEffect(() => {
     dispatch(getTweets());
+    const stopSync = tweetService.onSync((tweet) =>
+      dispatch({ type: "ONSYNC_TWEETS", payload: tweet })
+    );
+    return () => stopSync();
   }, [dispatch]);
 
   useEffect(() => {
