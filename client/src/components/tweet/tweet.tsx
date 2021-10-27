@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { TweetType } from "../../service/store";
 import UpdateTweet from "../update_tweet/update_tweet";
 import styles from "./tweet.module.css";
+
+type TweetType = {
+  id: string;
+  createdAt: Date;
+  text: string;
+  name: string;
+  username: string;
+  url: string;
+};
 
 type TweetPros = {
   item: TweetType;
@@ -72,15 +80,16 @@ function onUpdatePaeneolSetting(onUpdate: boolean) {
   }
 }
 
-function calculateDate(date: number) {
-  const newDate = new Date(date);
-  const diffDate = Date.now() - date;
+function calculateDate(number: Date) {
+  const date = new Date(number);
+  const newDate = date.getTime();
+  const diffDate = Date.now() - newDate;
   const second = Math.floor(diffDate / 1000);
   const minute = Math.floor(second / 60);
   const hour = Math.floor(minute / 60);
   const day = Math.floor(hour / 24);
   if (day >= 30) {
-    return `· on ${newDate.getMonth()}월 ${newDate.getDate()} `;
+    return `· on ${date.getMonth()}월 ${date.getDate()} `;
   }
   if (day >= 1) {
     return `· ${day} days ago`;
