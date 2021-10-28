@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
 import Login from "../components/login/login";
 import TokenStorage from "../db/token";
 import { createId, loginId } from "../module/user";
@@ -14,7 +13,6 @@ const LoginContainer = (props) => {
     token = initialToken,
   } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const history = useHistory();
   const onLoginId = (username, password) => {
     dispatch(loginId({ username, password }));
   };
@@ -23,11 +21,9 @@ const LoginContainer = (props) => {
   };
   useEffect(() => {
     if (token) {
-      history.push({
-        pathname: "/main",
-      });
+      window.location.replace("/main");
     }
-  }, [token, history]);
+  }, [token]);
 
   if (loading) return <div>로딩중입니다</div>;
   return (

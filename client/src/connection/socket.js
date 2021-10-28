@@ -12,12 +12,6 @@ export default class Socket {
   }
 
   onSync(event, callback) {
-    console.log(this.io.connected);
-
-    if (!this.io.connected) {
-      console.log("he");
-      this.io.connect();
-    }
     this.io.on(event, (message) => callback(message));
     return () => this.io.off(event);
   }
