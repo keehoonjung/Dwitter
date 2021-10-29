@@ -18,10 +18,16 @@ const TweetsContainer = (props) => {
   }, [dispatch]);
 
   useEffect(() => {
-    const stopSync = tweetService.onSync((tweet) =>
-      dispatch({ type: "ONSYNC_TWEETS", payload: tweet })
+    const createStopSync = tweetService.createOnSync((tweet) =>
+      dispatch({ type: "ONSYNC_CREATE_TWEETS", payload: tweet })
     );
-    return () => stopSync();
+    const deleteStopSync = tweetService.deleteOnSync((id) => {
+      dispatch({ type: "ONSYNC_DELETE_TWEETS", payload: id });
+    });
+    return () => {
+      createStopSync();
+      deleteStopSync();
+    };
   }, [dispatch]);
 
   useEffect(() => {
@@ -31,7 +37,10 @@ const TweetsContainer = (props) => {
   }, [token, history]);
 
   if (loading) return <div>로딩중입니다.</div>;
-  if (error) return <div>에러가 발생했습니다</div>;
+  if (error) {
+    console.log(error);
+    return <div>에러가 발생했습니다</div>;
+  }
   if (!data) return null;
   return <Tweets tweets={data} />;
 };

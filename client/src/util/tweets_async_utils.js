@@ -117,9 +117,7 @@ const deleteAsyncActionCallback = (key, state, action) => ({
   ...state,
   posts: {
     loading: false,
-    data: state.posts.data
-      ? state.posts.data.filter((tweet) => tweet.id !== action.meta)
-      : null,
+    data: state.posts.data,
     error: null,
   },
 });

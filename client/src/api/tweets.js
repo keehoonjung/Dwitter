@@ -50,7 +50,11 @@ export default class TweetService {
     };
   }
 
-  onSync(callback) {
-    return this.socket.onSync("tweets", callback);
+  createOnSync(callback) {
+    return this.socket.onSync("createTweet", callback);
+  }
+
+  deleteOnSync(callback) {
+    return this.socket.onSync("deleteTweet", callback);
   }
 }

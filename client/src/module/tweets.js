@@ -44,7 +44,8 @@ const UPDATE_TWEET = "UPDATE_TWEET";
 const UPDATE_TWEET_SUCCESS = "UPDATE_TWEET_SUCCESS";
 const UPDATE_TWEET_ERROR = "UPDATE_TWEET_ERROR";
 
-const ONSYNC_TWEETS = "ONSYNC_TWEETS";
+const ONSYNC_CREATE_TWEETS = "ONSYNC_CREATE_TWEETS";
+const ONSYNC_DELETE_TWEETS = "ONSYNC_DELETE_TWEETS";
 
 export const getTweets = tweetsPromiseThunk(GET_TWEETS, tweetService.getTweets);
 export const getTweet = tweetPromiseThunkById(
@@ -66,7 +67,7 @@ export const updateTweet = tweetPromiseThunkById(
 );
 export const onSyncTweets = () => (dispatch) => {
   tweetService.onSync((tweet) => {
-    dispatch({ type: ONSYNC_TWEETS, payload: tweet });
+    dispatch({ type: ONSYNC_CREATE_TWEETS, payload: tweet });
   });
 };
 
@@ -103,13 +104,24 @@ export default function tweets(state = initialState, action) {
         state,
         action
       );
-    case ONSYNC_TWEETS:
+    case ONSYNC_CREATE_TWEETS:
       const result = action.payload;
       return {
         ...state,
         posts: {
           loading: false,
           data: result ? [result, ...state.posts.data] : state.posts.data,
+          error: null,
+        },
+      };
+    case ONSYNC_DELETE_TWEETS:
+      return {
+        ...state,
+        posts: {
+          loading: false,
+          data: state.posts.data
+            ? state.posts.data.filter((tweet) => tweet.id !== action.payload)
+            : null,
           error: null,
         },
       };
