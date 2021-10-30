@@ -46,6 +46,7 @@ const UPDATE_TWEET_ERROR = "UPDATE_TWEET_ERROR";
 
 const ONSYNC_CREATE_TWEETS = "ONSYNC_CREATE_TWEETS";
 const ONSYNC_DELETE_TWEETS = "ONSYNC_DELETE_TWEETS";
+const ONSYNC_UPDATE_TWEETS = "ONSYNC_UPDATE_TWEETS";
 
 export const getTweets = tweetsPromiseThunk(GET_TWEETS, tweetService.getTweets);
 export const getTweet = tweetPromiseThunkById(
@@ -121,6 +122,25 @@ export default function tweets(state = initialState, action) {
           loading: false,
           data: state.posts.data
             ? state.posts.data.filter((tweet) => tweet.id !== action.payload)
+            : null,
+          error: null,
+        },
+      };
+    case ONSYNC_UPDATE_TWEETS:
+      const id = action.payload.id;
+      return {
+        ...state,
+        posts: {
+          loading: false,
+          data: state.posts.data
+            ? state.posts.data.map((tweet) => {
+                console.log(tweet.id);
+                if (tweet.id !== id) {
+                  return tweet;
+                }
+                console.log(action.payload);
+                return action.payload;
+              })
             : null,
           error: null,
         },

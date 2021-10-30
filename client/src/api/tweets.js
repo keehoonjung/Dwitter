@@ -57,4 +57,8 @@ export default class TweetService {
   deleteOnSync(callback) {
     return this.socket.onSync("deleteTweet", callback);
   }
+
+  updateOnSync(callback) {
+    return this.socket.onSync("updateTweet", callback);
+  }
 }

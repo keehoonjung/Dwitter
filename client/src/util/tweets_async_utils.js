@@ -126,14 +126,7 @@ const updateAsyncActionCallback = (key, state, action) => ({
   ...state,
   posts: {
     loading: false,
-    data: state.posts.data
-      ? state.posts.data.map((tweet) => {
-          if (tweet.id !== action.meta) {
-            return tweet;
-          }
-          return action.payload;
-        })
-      : null,
+    data: state.posts.data,
     error: null,
   },
 });

@@ -24,9 +24,13 @@ const TweetsContainer = (props) => {
     const deleteStopSync = tweetService.deleteOnSync((id) => {
       dispatch({ type: "ONSYNC_DELETE_TWEETS", payload: id });
     });
+    const updateStopSync = tweetService.updateOnSync((tweet) => {
+      dispatch({ type: "ONSYNC_UPDATE_TWEETS", payload: tweet });
+    });
     return () => {
       createStopSync();
       deleteStopSync();
+      updateStopSync();
     };
   }, [dispatch]);
 
