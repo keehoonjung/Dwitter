@@ -40,6 +40,7 @@ export async function updateTweet(req, res) {
   }
   const updated = await tweetRepository.update(id, text);
   res.status(200).json(updated);
+  getSocketIO().emit("updateTweet", updated);
 }
 export async function deleteTweet(req, res) {
   const id = req.params.id;
