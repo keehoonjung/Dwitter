@@ -7,6 +7,9 @@ import {
   handleAsyncUpdateTweetActions,
   tweetsReducerUtils,
   createTweetPromiseThunk,
+  onSyncCreateAction,
+  onSyncDeleteAction,
+  onSyncUpdateAction,
 } from "../util/tweets_async_utils";
 
 import HttpClient from "../network/http";
@@ -66,11 +69,6 @@ export const updateTweet = tweetPromiseThunkById(
   tweetService.updateTweet,
   (param) => param.id
 );
-export const onSyncTweets = () => (dispatch) => {
-  tweetService.onSync((tweet) => {
-    dispatch({ type: ONSYNC_CREATE_TWEETS, payload: tweet });
-  });
-};
 
 const initialState = {
   posts: tweetsReducerUtils.initial(),
@@ -106,45 +104,11 @@ export default function tweets(state = initialState, action) {
         action
       );
     case ONSYNC_CREATE_TWEETS:
-      const result = action.payload;
-      return {
-        ...state,
-        posts: {
-          loading: false,
-          data: result ? [result, ...state.posts.data] : state.posts.data,
-          error: null,
-        },
-      };
+      return onSyncCreateAction(state, action);
     case ONSYNC_DELETE_TWEETS:
-      return {
-        ...state,
-        posts: {
-          loading: false,
-          data: state.posts.data
-            ? state.posts.data.filter((tweet) => tweet.id !== action.payload)
-            : null,
-          error: null,
-        },
-      };
+      return onSyncDeleteAction(state, action);
     case ONSYNC_UPDATE_TWEETS:
-      const id = action.payload.id;
-      return {
-        ...state,
-        posts: {
-          loading: false,
-          data: state.posts.data
-            ? state.posts.data.map((tweet) => {
-                console.log(tweet.id);
-                if (tweet.id !== id) {
-                  return tweet;
-                }
-                console.log(action.payload);
-                return action.payload;
-              })
-            : null,
-          error: null,
-        },
-      };
+      return onSyncUpdateAction(state, action);
     default:
       return state;
   }

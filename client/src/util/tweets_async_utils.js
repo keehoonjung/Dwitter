@@ -143,3 +143,49 @@ export const handleAsyncDeleteTweetActions = handleAsyncActions(
 export const handleAsyncUpdateTweetActions = handleAsyncActions(
   updateAsyncActionCallback
 );
+
+export const onSyncCreateAction = (state, action) => {
+  const result = action.payload;
+  return {
+    ...state,
+    posts: {
+      loading: false,
+      data: result ? [result, ...state.posts.data] : state.posts.data,
+      error: null,
+    },
+  };
+};
+
+export const onSyncDeleteAction = (state, action) => {
+  return {
+    ...state,
+    posts: {
+      loading: false,
+      data: state.posts.data
+        ? state.posts.data.filter((tweet) => tweet.id !== action.payload)
+        : null,
+      error: null,
+    },
+  };
+};
+
+export const onSyncUpdateAction = (state, action) => {
+  const id = action.payload.id;
+  return {
+    ...state,
+    posts: {
+      loading: false,
+      data: state.posts.data
+        ? state.posts.data.map((tweet) => {
+            console.log(tweet.id);
+            if (tweet.id !== id) {
+              return tweet;
+            }
+            console.log(action.payload);
+            return action.payload;
+          })
+        : null,
+      error: null,
+    },
+  };
+};
