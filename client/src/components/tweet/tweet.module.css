@@ -1,4 +1,4 @@
-@value tweet-bg-color, accent-color, smokywhite from "/src/common/color.css";
+@value edit-bg-color,tweet-bg-color, accent-color, smokywhite from "/src/common/color.css";
 
 .container {
   display: flex;
@@ -19,6 +19,17 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
+}
+
+.string_thumbnail {
+  width: 3rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 2.5rem;
+  background-color: edit-bg-color;
 }
 
 .description {

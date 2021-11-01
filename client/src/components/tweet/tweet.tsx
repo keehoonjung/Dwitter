@@ -41,7 +41,11 @@ const Tweet = ({ item, data, onDeleteTweet, onUpdateTweet }: TweetPros) => {
     <li
       className={`${styles.container} ${onUpdatePaeneolSetting(updatePaeneol)}`}
     >
-      <img className={styles.thumbnail} src={item.url} alt="thumbnail" />
+      {item.url ? (
+        <img className={styles.thumbnail} src={item.url} alt="thumbnail" />
+      ) : (
+        <div className={styles.string_thumbnail}>{item.username.charAt(0)}</div>
+      )}
       <div className={styles.description}>
         <div className={styles.user}>
           <h3 className={styles.user_name}>{item.name}</h3>
