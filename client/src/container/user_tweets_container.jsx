@@ -5,7 +5,7 @@ import Tweets from "../components/tweets/tweets";
 import { getTweets } from "../module/tweets";
 
 const UserTweetsContainer = ({ username }) => {
-  const { loading, data, error } = useSelector((state) => state.tweets.posts);
+  const { data, error } = useSelector((state) => state.tweets.posts);
   const { token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -20,7 +20,6 @@ const UserTweetsContainer = ({ username }) => {
     }
   }, [token, history]);
 
-  if (loading) return <div>로딩중입니다.</div>;
   if (error) return <div>에러가 발생했습니다</div>;
   if (!data) return null;
   return <Tweets tweets={data} />;

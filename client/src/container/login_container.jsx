@@ -7,11 +7,7 @@ const tokenStorage = new TokenStorage();
 const initialToken = tokenStorage.getToken();
 
 const LoginContainer = (props) => {
-  const {
-    loading,
-    error,
-    token = initialToken,
-  } = useSelector((state) => state.user);
+  const { error, token = initialToken } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const onLoginId = (username, password) => {
     dispatch(loginId({ username, password }));
@@ -25,7 +21,6 @@ const LoginContainer = (props) => {
     }
   }, [token]);
 
-  if (loading) return <div>로딩중입니다</div>;
   return (
     <>
       <Login onLoginId={onLoginId} onCreateId={onCreateId} error={error} />
