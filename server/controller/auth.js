@@ -12,16 +12,19 @@ export async function signUp(req, res) {
     return res.status(409).json({ message: `${username} aleady exist Id` });
   }
   const hashed = await bcrypt.hash(password, config.bcrypt.saltRounds);
-  const userId = await userRepository.create({
-    username,
-    password: hashed,
-    name,
-    email,
-    url,
-  });
-  const token = createJwtToken(userId);
-
-  res.status(201).json({ token, username });
+  try {
+    const userId = await userRepository.create({
+      username,
+      password: hashed,
+      name,
+      email,
+      url,
+    });
+    const token = createJwtToken(userId);
+    res.status(201).json({ token, username });
+  } catch (error) {
+    res.status(400).json(error);
+  }
 }
 
 export async function loginUser(req, res) {
