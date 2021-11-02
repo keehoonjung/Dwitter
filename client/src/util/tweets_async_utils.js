@@ -2,7 +2,6 @@ export const tweetsPromiseThunk = (type, promiseCreator) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
 
   return (param) => async (dispatch) => {
-    dispatch({ type });
     try {
       const payload = await promiseCreator(param);
       dispatch({ type: SUCCESS, payload });
@@ -16,7 +15,6 @@ export const createTweetPromiseThunk = (type, promiseCreator) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
 
   return (param) => async (dispatch) => {
-    dispatch({ type });
     try {
       await promiseCreator(param);
       dispatch({ type: SUCCESS });
@@ -36,7 +34,6 @@ export const tweetPromiseThunkById = (
 
   return (param) => async (dispatch) => {
     const id = idSelector(param);
-    dispatch({ type, meta: id });
     try {
       const payload = await promiseCreator(param);
       dispatch({ type: SUCCESS, payload, meta: id });
@@ -49,46 +46,31 @@ export const tweetPromiseThunkById = (
 
 export const tweetsReducerUtils = {
   initial: (initialData = null) => ({
-    loading: false,
     data: null,
-    error: null,
-  }),
-  loading: (prevState = null) => ({
-    loading: true,
-    data: prevState,
     error: null,
   }),
   success: (payload) => ({
-    loading: false,
     data: payload,
     error: null,
   }),
-  error: (error) => ({
-    loading: false,
-    data: null,
-    error: error,
+  error: (prevState = null, error) => ({
+    data: prevState,
+    error: error.toString(),
   }),
 };
 
 const handleAsyncActions = (callback) => {
-  return (type, key) => {
+  return (type) => {
     const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
     return (state, action) => {
       switch (action.type) {
-        case type:
-          const prevState = state[key] && state[key].data;
-          return {
-            ...state,
-            [key]: prevState
-              ? tweetsReducerUtils.loading(prevState)
-              : tweetsReducerUtils.loading(),
-          };
         case SUCCESS:
-          return callback(key, state, action);
+          return callback(state, action);
         case ERROR:
+          const prevsState = state.posts && state.posts.data;
           return {
             ...state,
-            [key]: tweetsReducerUtils.error(action.payload),
+            posts: tweetsReducerUtils.error(prevsState, action.payload),
           };
         default:
           return state;
@@ -97,35 +79,32 @@ const handleAsyncActions = (callback) => {
   };
 };
 
-const getAsyncActionCallback = (key, state, action) => ({
+const getAsyncActionCallback = (state, action) => ({
   ...state,
-  [key]: tweetsReducerUtils.success(action.payload),
+  posts: tweetsReducerUtils.success(action.payload),
 });
 
-const postAsyncActionCallback = (key, state, action) => {
+const postAsyncActionCallback = (state, action) => {
   return {
     ...state,
-    [key]: {
-      loading: false,
+    posts: {
       data: state.posts.data,
       error: null,
     },
   };
 };
 
-const deleteAsyncActionCallback = (key, state, action) => ({
+const deleteAsyncActionCallback = (state, action) => ({
   ...state,
   posts: {
-    loading: false,
     data: state.posts.data,
     error: null,
   },
 });
 
-const updateAsyncActionCallback = (key, state, action) => ({
+const updateAsyncActionCallback = (state, action) => ({
   ...state,
   posts: {
-    loading: false,
     data: state.posts.data,
     error: null,
   },
@@ -149,7 +128,6 @@ export const onSyncCreateAction = (state, action) => {
   return {
     ...state,
     posts: {
-      loading: false,
       data: result ? [result, ...state.posts.data] : state.posts.data,
       error: null,
     },
@@ -160,7 +138,6 @@ export const onSyncDeleteAction = (state, action) => {
   return {
     ...state,
     posts: {
-      loading: false,
       data: state.posts.data
         ? state.posts.data.filter((tweet) => tweet.id !== action.payload)
         : null,
@@ -174,7 +151,6 @@ export const onSyncUpdateAction = (state, action) => {
   return {
     ...state,
     posts: {
-      loading: false,
       data: state.posts.data
         ? state.posts.data.map((tweet) => {
             console.log(tweet.id);

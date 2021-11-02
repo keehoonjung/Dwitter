@@ -72,37 +72,25 @@ export const updateTweet = tweetPromiseThunkById(
 
 const initialState = {
   posts: tweetsReducerUtils.initial(),
-  post: tweetsReducerUtils.initial(),
 };
 
 export default function tweets(state = initialState, action) {
   switch (action.type) {
-    case GET_TWEETS:
     case GET_TWEETS_SUCCESS:
     case GET_TWEETS_ERROR:
-      return handleAsyncGetTweetsActions(GET_TWEETS, "posts")(state, action);
-    case GET_TWEET:
+      return handleAsyncGetTweetsActions(GET_TWEETS)(state, action);
     case GET_TWEET_SUCCESS:
     case GET_TWEET_ERROR:
-      return handleAsyncGetTweetsActions(GET_TWEET, "posts")(state, action);
-    case POST_TWEET:
+      return handleAsyncGetTweetsActions(GET_TWEET)(state, action);
     case POST_TWEET_SUCCESS:
     case POST_TWEET_ERROR:
-      return handleAsyncPostTweetActions(POST_TWEET, "posts")(state, action);
-    case DELETE_TWEET:
+      return handleAsyncPostTweetActions(POST_TWEET)(state, action);
     case DELETE_TWEET_SUCCESS:
     case DELETE_TWEET_ERROR:
-      return handleAsyncDeleteTweetActions(DELETE_TWEET, "posts")(
-        state,
-        action
-      );
-    case UPDATE_TWEET:
+      return handleAsyncDeleteTweetActions(DELETE_TWEET)(state, action);
     case UPDATE_TWEET_SUCCESS:
     case UPDATE_TWEET_ERROR:
-      return handleAsyncUpdateTweetActions(UPDATE_TWEET, "posts")(
-        state,
-        action
-      );
+      return handleAsyncUpdateTweetActions(UPDATE_TWEET)(state, action);
     case ONSYNC_CREATE_TWEETS:
       return onSyncCreateAction(state, action);
     case ONSYNC_DELETE_TWEETS:
