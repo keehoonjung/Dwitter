@@ -11,6 +11,7 @@ export const createLoginPromiseThunk = (type, promiseCreator) => {
       const payload = await promiseCreator(param);
       dispatch({ type: SUCCESS, payload });
     } catch (e) {
+      console.log(e);
       dispatch({ type: ERROR, payload: e.toString() });
     }
   };
@@ -26,7 +27,7 @@ export const CreateIdPromiseThunk = (type, promiseCreator) => {
     } catch (e) {
       dispatch({
         type: ERROR,
-        payload: `Error: ${param.username} already exists`,
+        payload: e.toString(),
       });
     }
   };
@@ -57,11 +58,11 @@ export const userReducerUtils = {
     data: null,
     error: null,
   }),
-  error: (error) => ({
+  error: (prevState = null, error) => ({
     loading: false,
     token: null,
-    data: null,
-    error: error,
+    data: prevState,
+    error: error.toString(),
   }),
 };
 
@@ -79,7 +80,8 @@ export const userHandleAsyncActions = (type, key) => {
           return userReducerUtils.logout_success();
         }
       case ERROR:
-        return userReducerUtils.error(action.payload);
+        const prevState = state && state.data;
+        return userReducerUtils.error(prevState, action.payload);
       default:
         return state;
     }
