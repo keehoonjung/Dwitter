@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import Banner from "../components/banner/banner";
 import Tweets from "../components/tweets/tweets";
 import TokenStorage from "../db/token";
 import { getTweets, tweetService } from "../module/tweets";
@@ -8,7 +9,7 @@ const tokenStorage = new TokenStorage();
 const initialToken = tokenStorage.getToken();
 
 const TweetsContainer = (props) => {
-  const { loading, data, error } = useSelector((state) => state.tweets.posts);
+  const { data, error } = useSelector((state) => state.tweets.posts);
   const { token = initialToken } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -40,13 +41,13 @@ const TweetsContainer = (props) => {
     }
   }, [token, history]);
 
-  if (loading) return <div>로딩중입니다.</div>;
-  if (error) {
-    console.log(error);
-    return <div>에러가 발생했습니다</div>;
-  }
   if (!data) return null;
-  return <Tweets tweets={data} />;
+  return (
+    <>
+      {error && <Banner error={error} />}
+      <Tweets tweets={data} />
+    </>
+  );
 };
 
 export default TweetsContainer;

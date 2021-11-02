@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import Banner from "../banner/banner";
 import styles from "./login.module.css";
 
 type LoginStatus = {
@@ -40,7 +41,7 @@ const Login = ({ onLoginId, onCreateId, error }: LoginStatus) => {
   };
   return (
     <>
-      {error && <div className={styles.error}>{error}</div>}
+      {error && <Banner error={error} />}
       <form className={styles.container}>
         <input
           ref={usernameRef}
