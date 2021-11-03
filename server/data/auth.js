@@ -52,10 +52,8 @@ export async function findById(id) {
   return User.findByPk(id);
 }
 
-export async function create({ username, password, name, email, url }) {
-  return User.create({ username, password, name, email, url }).then(
-    (result) => {
-      return result.dataValues.id;
-    }
-  );
+export async function create(userData) {
+  return User.create(userData).then((result) => {
+    return result.dataValues.id;
+  });
 }

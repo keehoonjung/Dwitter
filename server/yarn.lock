@@ -1647,10 +1647,10 @@
   "resolved" "https://registry.npmjs.org/sequelize-pool/-/sequelize-pool-6.1.0.tgz"
   "version" "6.1.0"
 
-"sequelize@^6.8.0":
-  "integrity" "sha512-tekqSMoEuhlXfc9f/WduQr+9CS87bPWw/GKEvd+zMlOlMVFOzNx9PecQV+McjA7OUNUa1YGyPEt+Fe8baXST5A=="
-  "resolved" "https://registry.npmjs.org/sequelize/-/sequelize-6.8.0.tgz"
-  "version" "6.8.0"
+"sequelize@^6.9.0":
+  "integrity" "sha512-tFROh9T9GgyY6aTV2+aGdfVNvrppuTOo1EFln9AtV8wXJTOOr7Nan7pZum5oLy87CGWl0YeHzAwg99tz04OqNA=="
+  "resolved" "https://registry.npmjs.org/sequelize/-/sequelize-6.9.0.tgz"
+  "version" "6.9.0"
   dependencies:
     "debug" "^4.1.1"
     "dottie" "^2.0.0"
