@@ -13,7 +13,14 @@ const LoginContainer = (props) => {
     dispatch(loginId({ username, password }));
   };
   const onCreateId = (username, password, name, email, url) => {
-    dispatch(createId({ username, password, name, email, url }));
+    const user = { username, password, name, email, url };
+    Object.keys(user).map((data) => {
+      if (user[data] === "") {
+        user[data] = null;
+      }
+      return data;
+    });
+    dispatch(createId(user));
   };
   useEffect(() => {
     if (token) {

@@ -3,16 +3,10 @@ export default class UserService {
     this.http = http;
     this.tokenStorage = tokenStorage;
   }
-  signUp = async ({ username, password, name, email, url }) => {
+  signUp = async (user) => {
     const data = await this.http.fetch(`/auth/signup`, {
       method: "POST",
-      body: JSON.stringify({
-        username,
-        password,
-        name,
-        email,
-        url,
-      }),
+      body: JSON.stringify(user),
     });
     this.tokenStorage.saveToken(data.token);
     return data;
