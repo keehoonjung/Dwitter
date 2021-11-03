@@ -139,7 +139,9 @@ export const onSyncDeleteAction = (state, action) => {
     ...state,
     posts: {
       data: state.posts.data
-        ? state.posts.data.filter((tweet) => tweet.id !== action.payload)
+        ? state.posts.data.filter(
+            (tweet) => tweet.id.toString() !== action.payload
+          )
         : null,
       error: null,
     },
@@ -153,7 +155,6 @@ export const onSyncUpdateAction = (state, action) => {
     posts: {
       data: state.posts.data
         ? state.posts.data.map((tweet) => {
-            console.log(tweet.id);
             if (tweet.id !== id) {
               return tweet;
             }
