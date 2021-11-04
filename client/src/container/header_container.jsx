@@ -7,7 +7,10 @@ const HeaderContainer = (props) => {
   const { data } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const onLogoutId = () => {
-    dispatch(logoutId());
+    let logout = window.confirm("Do you want to log out?");
+    if (logout) {
+      dispatch(logoutId());
+    }
   };
   useEffect(() => {
     dispatch(me());
