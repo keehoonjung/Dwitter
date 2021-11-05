@@ -11,7 +11,6 @@ export const createLoginPromiseThunk = (type, promiseCreator) => {
       const payload = await promiseCreator(param);
       dispatch({ type: SUCCESS, payload });
     } catch (e) {
-      console.log(e);
       dispatch({ type: ERROR, payload: e.toString() });
     }
   };
