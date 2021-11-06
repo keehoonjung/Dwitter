@@ -15,7 +15,10 @@ export async function signUp(req, res) {
   }
   const hashed = await bcrypt.hash(password, config.bcrypt.saltRounds);
   try {
-    const userId = await userRepository.create(userData);
+    const userId = await userRepository.create({
+      ...userData,
+      password: hashed,
+    });
     const token = createJwtToken(userId);
     res.status(201).json({ token, username });
   } catch (error) {
@@ -25,7 +28,6 @@ export async function signUp(req, res) {
 
 export async function loginUser(req, res) {
   const { username, password } = req.body;
-  console.log(username, password);
   const user = await userRepository.findByUsername(username);
   if (!user) {
     return res.status(401).json({ message: "Invalid user or password" });
